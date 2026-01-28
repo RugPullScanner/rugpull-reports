@@ -4,7 +4,7 @@
   "contract_address": "0xcf64487276e05afdc3ed669fb5dcebb17000fd58",
   "iteration": 1,
   "rug_pull_detected": true,
-  "risk_level": "CRITICAL",
+  "risk_level": "HIGHN",
   "triggered_conditions": [
     "Hidden Mint Function",
     "Limiting Sell Order"
