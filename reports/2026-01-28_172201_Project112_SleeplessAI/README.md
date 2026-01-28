@@ -5,8 +5,7 @@
 **Status:** 🔴 RUG PULL DETECTED  
 **Risk Level:** CRITICAL  
 **Contract:** SleeplessAI  
-**Project ID:** 112  
-**Detection Method:** Unknown  
+**Contract Address:** 0xcf64487276e05afdc3ed669fb5dcebb17000fd58  
 **Timestamp:** 2026-01-28T17:22:01.543702
 
 ---
