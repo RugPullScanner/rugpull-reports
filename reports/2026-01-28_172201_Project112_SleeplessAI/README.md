@@ -3,7 +3,7 @@
 ##  Alert Summary
 
 **Status:**  RUG PULL DETECTED  
-**Risk Level:** CRITICAL  
+**Risk Level:** HIGHN  
 **Contract:** SleeplessAI  
 **Contract Address:** 0xcf64487276e05afdc3ed669fb5dcebb17000fd58  
 **Timestamp:** 2026-01-28T17:22:01.543702
