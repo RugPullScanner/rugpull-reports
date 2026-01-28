@@ -1,8 +1,8 @@
 # Rug Pull Detection Report
 
-## 🚨 Alert Summary
+##  Alert Summary
 
-**Status:** 🔴 RUG PULL DETECTED  
+**Status:**  RUG PULL DETECTED  
 **Risk Level:** CRITICAL  
 **Contract:** SleeplessAI  
 **Contract Address:** 0xcf64487276e05afdc3ed669fb5dcebb17000fd58  
@@ -10,20 +10,20 @@
 
 ---
 
-## 🔍 Triggered Conditions
+##  Triggered Conditions
 
 1. Hidden Mint Function
 2. Limiting Sell Order
 
 ---
 
-## ⚔️ Attack Path Summary
+## ️ Attack Path Summary
 
 The function call sequence allows the contract owner to mint excessive tokens to their account and restrict other users' balances, enabling a rug pull by dumping these tokens.
 
 ---
 
-## 🎯 Critical Functions Involved
+##  Critical Functions Involved
 
 - `removeLimits`
 - `openTrading`
@@ -31,7 +31,7 @@ The function call sequence allows the contract owner to mint excessive tokens to
 
 ---
 
-## ⚠️ Security Warning
+## ️ Security Warning
 
 **DO NOT INTERACT** with this contract if rug pull has been detected.
 
