@@ -1,0 +1,55 @@
+{
+  "project_id": "152",
+  "contract_name": "PEHUB",
+  "iteration": 2,
+  "detection_method": "LLM_DYNAMIC_ANALYSIS",
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'refund' function allows arbitrary minting of tokens to any address by the owner.",
+    "Leaking Token: The 'burnFromAddresses' function can be used to manipulate balances by dividing them, potentially moving tokens to the BURN_ADDRESS."
+  ],
+  "attack_path_summary": "The function call sequence enabled the owner to mint a large number of tokens to an external address using the 'refund' function, significantly altering the token distribution. Additionally, the 'burnFromAddresses' function could be used to manipulate token balances under the guise of burning, potentially leaking tokens to a burn address.",
+  "critical_functions_involved": [
+    "refund",
+    "burnFromAddresses"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "enableTrading",
+      "caller": "0x87f60E577a4B5eE6A2F3156CBc8261D103600177",
+      "parameters": []
+    },
+    {
+      "function_name": "refund",
+      "caller": "0x87f60E577a4B5eE6A2F3156CBc8261D103600177",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "burnFromAddresses",
+      "caller": "0x87f60E577a4B5eE6A2F3156CBc8261D103600177",
+      "parameters": [
+        {
+          "name": "accounts",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-22T14:36:46.919215"
+}
