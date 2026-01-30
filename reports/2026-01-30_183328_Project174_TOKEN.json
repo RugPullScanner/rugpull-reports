@@ -1,0 +1,47 @@
+{
+  "project_id": "174",
+  "contract_name": "TOKEN",
+  "contract_address": "0x8b1d897ae48a0f6ee118eae829f2c1c8d48e44b7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "Large transfer executed by new owner"
+  ],
+  "attack_path_summary": "The function call sequence transferred ownership to an external address, which then executed a large transfer. This behavior is consistent with a rug pull, where the new owner could potentially drain the contract's funds.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x2fbe92f9d53042ef9cff772f1dfcbbfc46454f14",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x05cc97720e4b03c2d058915705c95cd5a9fb5d7e"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x05cc97720e4b03c2d058915705c95cd5a9fb5d7e",
+      "parameters": [
+        {
+          "name": "djzfgvhbrecipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "hzplnmosamount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T18:33:28.971913"
+}
