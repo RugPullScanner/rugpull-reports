@@ -1,0 +1,81 @@
+{
+  "project_id": "141",
+  "contract_name": "AistrDonation",
+  "contract_address": "0xfb2b7e25f283c006d38601bdd298ed7c30d7ed98",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The sequence involved setting a new minter, minting a large amount of tokens to an external address, freezing the account, and then globally freezing all token transfers. This allows the minter to create tokens at will and restricts other users from transferring or selling tokens, which can be exploited to execute a rug pull.",
+  "critical_functions_involved": [
+    "setMinter",
+    "mint",
+    "setAccountFrozen",
+    "setFrozen"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setMinter",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "allowed",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setAccountFrozen",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "setFrozen",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T21:24:05.633135"
+}
