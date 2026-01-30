@@ -1,0 +1,52 @@
+{
+  "project_id": "122",
+  "contract_name": "Toknify",
+  "contract_address": "0xe14dfb774c8280da470fca68151a485a55f4538a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from contract to external address",
+    "Potential for draining contract funds by owner"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set the fee receiver to an external address and then transfer a significant amount of tokens from the contract to that address, potentially draining the contract's funds.",
+  "critical_functions_involved": [
+    "setFeeReceiver",
+    "rescueToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFeeReceiver",
+      "caller": "0x3af75af6f056d4d72c1675da919aebf908a109d6",
+      "parameters": [
+        {
+          "name": "newReceiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x3af75af6f056d4d72c1675da919aebf908a109d6",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T21:06:11.715410"
+}
