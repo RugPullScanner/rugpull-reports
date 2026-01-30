@@ -1,0 +1,65 @@
+{
+  "project_id": "77",
+  "contract_name": "AgDonationVault",
+  "contract_address": "0x8b8d0a067c99093d6fb18ed38aa49f2fa7cf8731",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external address",
+    "Withdrawal of all funds by new owner",
+    "Token rescue by new owner"
+  ],
+  "attack_path_summary": "The function call sequence involved transferring ownership to an external address, which then withdrew all funds and rescued tokens, effectively draining the contract.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawAll",
+    "rescueToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawAll",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": 1000000
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:17:40.048739"
+}
