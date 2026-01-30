@@ -1,0 +1,47 @@
+{
+  "project_id": "112",
+  "contract_name": "SleeplessAI",
+  "contract_address": "0xcf64487276e05afdc3ed669fb5dcebb17000fd58",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The function call sequence allowed the privileged address to mint an excessive number of tokens to its own balance, which can then be used to drain liquidity pools by selling these tokens. Additionally, the 'openTrading' function can restrict other users from selling tokens, allowing the privileged address to execute a rug pull without competition.",
+  "critical_functions_involved": [
+    "removeLimits",
+    "openTrading"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "removeLimits",
+      "caller": "0xb359890a532c8c9ce09b53a871076462828d6f3d",
+      "parameters": [
+        {
+          "name": "addBot",
+          "type": "uint256",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x45af15b299de5e77b3dadca429dd4ba466d7a448",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T12:24:40.768326"
+}
