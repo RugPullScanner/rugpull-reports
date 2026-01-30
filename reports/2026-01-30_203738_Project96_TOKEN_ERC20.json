@@ -1,0 +1,86 @@
+{
+  "project_id": "96",
+  "contract_name": "TOKEN_ERC20",
+  "contract_address": "0xba8f163015832ae0bf176e4615442597cc967dc2",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "Mint function called by new owner after pausing the contract"
+  ],
+  "attack_path_summary": "The function call sequence allowed the original owner to transfer ownership to an external address, which then paused the contract and attempted to mint tokens, indicating potential malicious control over the contract's token supply.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "pause",
+    "mint"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "multiLock",
+      "caller": "0xbbf6270f02ee639f1bcdd2450424eda46d9e48d9",
+      "parameters": [
+        {
+          "name": "accounts",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[]",
+          "value": [
+            500000000000000000000,
+            500000000000000000000
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xbbf6270f02ee639f1bcdd2450424eda46d9e48d9",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "burn",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": 1000000000000000000000
+        }
+      ]
+    },
+    {
+      "function_name": "pause",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": 1000000000000000000000
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:37:38.294974"
+}
