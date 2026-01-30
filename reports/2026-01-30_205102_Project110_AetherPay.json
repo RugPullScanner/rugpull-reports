@@ -1,0 +1,36 @@
+{
+  "project_id": "110",
+  "contract_name": "AetherPay",
+  "contract_address": "0xd05e3b06ed8ffffc7c3405028752ae476644d4c0",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "emergencyCoinWithdraw allows the owner to withdraw all native coins from the contract",
+    "emergencyTokenWithdraw allows the owner to withdraw all tokens from the contract"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to withdraw all native coins and tokens from the contract, effectively draining all funds and leaving other participants with losses.",
+  "critical_functions_involved": [
+    "emergencyCoinWithdraw",
+    "emergencyTokenWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyCoinWithdraw",
+      "caller": "0xd27a4e3a8f58c1fd832e9946a08c20e9139aee9e",
+      "parameters": []
+    },
+    {
+      "function_name": "emergencyTokenWithdraw",
+      "caller": "0xd27a4e3a8f58c1fd832e9946a08c20e9139aee9e",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(aetherpay)"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:51:02.919768"
+}
