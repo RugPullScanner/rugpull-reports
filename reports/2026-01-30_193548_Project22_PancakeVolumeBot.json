@@ -1,0 +1,49 @@
+{
+  "project_id": "22",
+  "contract_name": "PancakeVolumeBot",
+  "contract_address": "0x33808250dd75f0006bc218b87451f00e3336cb8a",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized ownership transfer attempt",
+    "Unauthorized token rescue attempt",
+    "Unauthorized BNB rescue attempt"
+  ],
+  "attack_path_summary": "The function call sequence involved an unauthorized attempt to transfer ownership, followed by attempts to rescue tokens and BNB from the contract. These actions could lead to a rug pull by allowing an attacker to gain control of the contract and drain its assets.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "rescueToken",
+    "rescueBNB"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueBNB",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-30T19:35:48.917534"
+}
