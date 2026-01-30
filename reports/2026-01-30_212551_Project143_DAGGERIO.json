@@ -1,0 +1,74 @@
+{
+  "project_id": "143",
+  "contract_name": "DAGGERIO",
+  "contract_address": "0xfbfd1fc546a3deecb5b1a15ba4e71ee7ce8c55f3",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The function call sequence attempted to transfer a large amount of tokens from the owner to an external address, followed by an approval and transferFrom by an external caller. This indicates potential unauthorized token movement and hidden minting capabilities.",
+  "critical_functions_involved": [
+    "transfer",
+    "approve",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x47b0e3f48cb0ebb0624ff069bb7f22fbe67ba54c",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x47b0e3f48cb0ebb0624ff069bb7f22fbe67ba54c",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x47b0e3f48cb0ebb0624ff069bb7f22fbe67ba54c"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T21:25:51.513974"
+}
