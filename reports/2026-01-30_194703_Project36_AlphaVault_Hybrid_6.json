@@ -1,0 +1,68 @@
+{
+  "project_id": "36",
+  "contract_name": "AlphaVault_Hybrid_6",
+  "contract_address": "0x4624d02a597bcd9c6bd5ae58cb8f2f770de45247",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Condition where the fallback function allows the owner to withdraw all USDT and BNB from the contract",
+    "The use of a hash to hide the owner's address, making it difficult to identify who can trigger the rug pull"
+  ],
+  "attack_path_summary": "The fallback function allows the contract owner, identified by a hashed address, to close the pool and withdraw all USDT and BNB from the contract, effectively draining all funds and executing a rug pull.",
+  "critical_functions_involved": [
+    "fallback"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "addLiquidity",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    },
+    {
+      "function_name": "addLiquidity",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    },
+    {
+      "function_name": "fallback",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-30T19:47:03.966024"
+}
