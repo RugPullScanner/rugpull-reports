@@ -1,0 +1,53 @@
+{
+  "project_id": "120",
+  "contract_name": "DStockComposerRouter",
+  "contract_address": "0xddc177b9182fa46a50cc166fcc474e62a3ea7088",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership was renounced and transferred to an external address",
+    "External address executed rescueNative function to transfer native tokens"
+  ],
+  "attack_path_summary": "The sequence involved renouncing ownership and transferring it to an external address, which then executed the rescueNative function to transfer native tokens, potentially draining the contract's funds.",
+  "critical_functions_involved": [
+    "renounceOwnership",
+    "transferOwnership",
+    "rescueNative"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "renounceOwnership",
+      "caller": "0x6dc731481648cd108120151f6ca1cbea8277ce36",
+      "parameters": []
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x6dc731481648cd108120151f6ca1cbea8277ce36",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueNative",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T21:04:15.398481"
+}
