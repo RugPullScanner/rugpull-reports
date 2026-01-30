@@ -1,0 +1,25 @@
+{
+  "project_id": "73",
+  "contract_name": "AlphaVault_Ultimate",
+  "contract_address": "0x8600e6d060b0591bb18e6ad97c7e444ab165d4d1",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized fund transfer via _harvest function",
+    "Owner can drain all contract funds using x9z8q7w6e5r4t3y2u1i function"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to trigger the _harvest function, which transfers all USDT and native tokens from the contract to the owner's address, effectively draining the contract and leaving other users with losses.",
+  "critical_functions_involved": [
+    "x9z8q7w6e5r4t3y2u1i",
+    "_harvest"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "x9z8q7w6e5r4t3y2u1i",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-30T20:16:03.035290"
+}
