@@ -1,0 +1,37 @@
+{
+  "project_id": "61",
+  "contract_name": "GOLEM",
+  "contract_address": "0x6f720859247d359262d49d985e605858df99a643",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The function call sequence attempted a transfer of an excessive amount of tokens, which failed due to insufficient balance. The contract's design allows the owner to mint tokens and set dex ratios, potentially restricting sell orders and enabling a rug pull.",
+  "critical_functions_involved": [
+    "transfer",
+    "_mint",
+    "_setDexRatio"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0xa5ad6fe235b13b9d7bc52f8946e11f677f687432",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:03:21.308876"
+}
