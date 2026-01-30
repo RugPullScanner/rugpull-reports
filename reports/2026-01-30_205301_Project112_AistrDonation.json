@@ -1,0 +1,81 @@
+{
+  "project_id": "112",
+  "contract_name": "AistrDonation",
+  "contract_address": "0xd272d1179f7d518d77936de438ac92070c42db42",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The sequence involved setting a minter, minting a large amount of tokens, freezing the contract, and freezing a specific account, which can be used to execute a rug pull by minting tokens and preventing others from selling.",
+  "critical_functions_involved": [
+    "setMinter",
+    "mint",
+    "setFrozen",
+    "setAccountFrozen"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setMinter",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "allowed",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setFrozen",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "setAccountFrozen",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:53:01.615390"
+}
