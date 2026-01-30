@@ -1,0 +1,47 @@
+{
+  "project_id": "112",
+  "contract_name": "SleeplessAI",
+  "contract_address": "0xcf64487276e05afdc3ed669fb5dcebb17000fd58",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'removeLimits' function allows the contract owner to arbitrarily increase their balance by a large amount.",
+    "Leaking Token: The 'transfer' function executed after 'removeLimits' allows the owner to transfer a large amount of tokens to another address."
+  ],
+  "attack_path_summary": "The function call sequence 'removeLimits' followed by 'transfer' allows the owner to mint a large number of tokens to themselves and then transfer them to another address, which can be used to drain liquidity pools and execute a rug pull.",
+  "critical_functions_involved": [
+    "removeLimits",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "removeLimits",
+      "caller": "0x45af15b299de5e77b3dadca429dd4ba466d7a448",
+      "parameters": [
+        {
+          "name": "addBot",
+          "type": "uint256",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x45af15b299de5e77b3dadca429dd4ba466d7a448",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xb359890a532c8c9ce09b53a871076462828d6f3d"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T13:02:03.422824"
+}
