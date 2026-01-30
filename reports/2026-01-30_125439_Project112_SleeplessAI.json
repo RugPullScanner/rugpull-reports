@@ -1,0 +1,58 @@
+{
+  "project_id": "112",
+  "contract_name": "SleeplessAI",
+  "contract_address": "0xcf64487276e05afdc3ed669fb5dcebb17000fd58",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The function call sequence allowed the privileged owner to mint an excessive amount of tokens using the removeLimits function, which could be used to drain liquidity pools. Additionally, the openTrading function can set balances of certain addresses to zero, potentially limiting their ability to sell tokens.",
+  "critical_functions_involved": [
+    "removeLimits",
+    "openTrading"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "removeLimits",
+      "caller": "0x45af15b299de5e77b3dadca429dd4ba466d7a448",
+      "parameters": [
+        {
+          "name": "addBot",
+          "type": "uint256",
+          "value": "1000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "openTrading",
+      "caller": "0xb359890a532c8c9ce09b53a871076462828d6f3d",
+      "parameters": [
+        {
+          "name": "bots",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x45af15b299de5e77b3dadca429dd4ba466d7a448",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xb359890a532c8c9ce09b53a871076462828d6f3d"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T12:54:39.317439"
+}
