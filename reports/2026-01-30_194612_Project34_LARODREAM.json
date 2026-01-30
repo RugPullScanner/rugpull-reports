@@ -1,0 +1,69 @@
+{
+  "project_id": "34",
+  "contract_name": "LARODREAM",
+  "contract_address": "0x43adebc2b3b4dbed1bd6f1ee7bf188421f265fb1",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens via 'authincateUser'",
+    "Privileged withdrawal of user funds via 'withdrawStakingR'"
+  ],
+  "attack_path_summary": "The function call sequence allows the contract owner to withdraw user funds and transfer tokens without user consent, indicating potential rug pull behavior.",
+  "critical_functions_involved": [
+    "authincateUser",
+    "withdrawStakingR"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "registionExit",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_referrer",
+          "type": "address",
+          "value": "0x0eed957928642ca8027acabd8166a3ec26036e6e"
+        },
+        {
+          "name": "_investAmt",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "_Deposit",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_investAmt",
+          "type": "uint256",
+          "value": "3000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawStakingR",
+      "caller": "0x0eed957928642ca8027acabd8166a3ec26036e6e",
+      "parameters": [
+        {
+          "name": "_user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "authincateUser",
+      "caller": "0x0eed957928642ca8027acabd8166a3ec26036e6e",
+      "parameters": [
+        {
+          "name": "_authAmount",
+          "type": "uint256",
+          "value": "3000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T19:46:12.458719"
+}
