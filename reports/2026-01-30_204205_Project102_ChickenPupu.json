@@ -1,0 +1,89 @@
+{
+  "project_id": "102",
+  "contract_name": "ChickenPupu",
+  "contract_address": "0xbdfe16523764e53778837f61bdc03eb0606c5a81",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "Router address changed to an arbitrary address",
+    "Tax wallet changed to an arbitrary address",
+    "Maximum tax rates set"
+  ],
+  "attack_path_summary": "The sequence of function calls allowed an external address to gain ownership, change the router and tax wallet to arbitrary addresses, and set maximum tax rates, which could facilitate a rug pull by redirecting funds and manipulating transactions.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "setRouter",
+    "setTaxWallet",
+    "setTaxes"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setRouter",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "router_",
+          "type": "address",
+          "value": "0xd8ce52f44890226c0a7d2adb206e482f7b30a0b5"
+        }
+      ]
+    },
+    {
+      "function_name": "setTaxes",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newBuyTaxBps",
+          "type": "uint16",
+          "value": "200"
+        },
+        {
+          "name": "newSellTaxBps",
+          "type": "uint16",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "function_name": "setTaxWallet",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "wallet",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:42:05.131424"
+}
