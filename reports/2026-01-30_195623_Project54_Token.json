@@ -1,0 +1,44 @@
+{
+  "project_id": "54",
+  "contract_name": "Token",
+  "contract_address": "0x6896161ed39e3ae75893f54e241c84d537176945",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The contract allows minting of tokens to any address without restrictions.",
+    "Limiting Sell Order: Trading is initially disabled and can be enabled by the owner, potentially restricting sell orders.",
+    "Leaking Token: The contract has conditions that can prevent certain addresses from transferring tokens."
+  ],
+  "attack_path_summary": "The function call sequence enabled trading and then transferred a large amount of tokens to an external address. The contract contains hidden minting capabilities and trading restrictions that could be exploited by the owner to execute a rug pull.",
+  "critical_functions_involved": [
+    "enableTradingTest",
+    "transfer",
+    "_mint",
+    "_transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "enableTradingTest",
+      "caller": "0xb894d437f33e63db21787d8ac85b9be8454c7dd5",
+      "parameters": []
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0xb894d437f33e63db21787d8ac85b9be8454c7dd5",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T19:56:23.500778"
+}
