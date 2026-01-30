@@ -1,0 +1,55 @@
+{
+  "project_id": "48",
+  "contract_name": "BNBConnect",
+  "contract_address": "0x65c8f1d849ca0fd0e9345088689b7c10c30afa37",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external caller",
+    "Unauthorized withdrawal of admin income",
+    "Unauthorized withdrawal of admin BNB"
+  ],
+  "attack_path_summary": "The function call sequence transferred ownership to an external caller, who then withdrew significant amounts of admin income and admin BNB, indicating a potential rug pull scenario.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawAdminIncome",
+    "withdrawAdminBNB"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xfe9acd32f53a16ae5469b11039c6139494d93782",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawAdminIncome",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawAdminBNB",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T19:53:27.167567"
+}
