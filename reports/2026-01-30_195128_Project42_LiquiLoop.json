@@ -1,0 +1,46 @@
+{
+  "project_id": "42",
+  "contract_name": "LiquiLoop",
+  "contract_address": "0x4fdcfedb67916260886975a0a57e711064d5fd62",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can perform emergencyWithdraw to transfer tokens from the contract to themselves",
+    "Owner has unrestricted access to emergencyWithdraw function"
+  ],
+  "attack_path_summary": "The function call sequence allows the contract owner to use the emergencyWithdraw function to transfer any amount of tokens from the contract to their own address, effectively draining the contract's balance and executing a rug pull.",
+  "critical_functions_involved": [
+    "emergencyWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setPause",
+      "caller": "0x6648a30df5c66e60a3ef20df0cb84c8295ad1f96",
+      "parameters": [
+        {
+          "name": "_state",
+          "type": "bool",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "function_name": "emergencyWithdraw",
+      "caller": "0x6648a30df5c66e60a3ef20df0cb84c8295ad1f96",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "address(liquiloop)"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T19:51:28.744709"
+}
