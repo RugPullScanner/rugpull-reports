@@ -1,0 +1,47 @@
+{
+  "project_id": "7",
+  "contract_name": "Token",
+  "contract_address": "0x0fed6dd2db71f7d55435eae86b41d615c15d3d1a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can drain contract balance using rescueEther",
+    "Owner can manipulate token distribution using transfer"
+  ],
+  "attack_path_summary": "The owner executed enableTrading to open trading, attempted to transfer a large amount of tokens to an external address, and then tried to drain the contract's ETH balance using rescueEther. The failed transfer indicates potential manipulation of token balances.",
+  "critical_functions_involved": [
+    "enableTrading",
+    "transfer",
+    "rescueEther"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "enableTrading",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": []
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "960000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueEther",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-30T19:29:07.098107"
+}
