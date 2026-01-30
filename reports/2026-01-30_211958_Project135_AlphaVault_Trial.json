@@ -1,0 +1,25 @@
+{
+  "project_id": "135",
+  "contract_name": "AlphaVault_Trial",
+  "contract_address": "0xefaa2ddb67883e7547fad7295e1047b6d32c672a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized access to _harvest function",
+    "Complete transfer of contract balance to a single address"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized address to invoke the _harvest function, resulting in the transfer of the entire contract balance to the caller, effectively draining all funds from the contract.",
+  "critical_functions_involved": [
+    "x9z8q7w6e5r4t3y2u1i",
+    "_harvest"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "x9z8q7w6e5r4t3y2u1i",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-30T21:19:58.670761"
+}
