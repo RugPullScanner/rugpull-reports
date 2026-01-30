@@ -1,0 +1,57 @@
+{
+  "project_id": "60",
+  "contract_name": "PI",
+  "contract_address": "0x6d5d8b95fc44f5e5d6b92b90d47e0064608ea3f7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer attempt",
+    "Hidden transfer logic with keccak256 hash"
+  ],
+  "attack_path_summary": "The function call sequence attempted to transfer tokens using a hidden logic that involves keccak256 hash, indicating potential unauthorized fund movement.",
+  "critical_functions_involved": [
+    "transfer",
+    "_transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x4deaf9160c77785fb681cb7cbcf0266147d3cc60",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x4deaf9160c77785fb681cb7cbcf0266147d3cc60"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T20:03:05.648852"
+}
