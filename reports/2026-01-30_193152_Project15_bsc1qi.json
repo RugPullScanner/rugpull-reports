@@ -1,0 +1,73 @@
+{
+  "project_id": "15",
+  "contract_name": "bsc1qi",
+  "contract_address": "0x29b56e1f7cca28fdfb8df4ce52ea3eb403e17903",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account",
+    "Excessive token transfer beyond balance"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external caller to transfer more tokens than available in the owner's balance, indicating a potential leakage of tokens from the owner's account.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x28c0c21168525dccae951036aec3b8921db01feb"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "50000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x28c0c21168525dccae951036aec3b8921db01feb",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x28c0c21168525dccae951036aec3b8921db01feb"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-30T19:31:52.894519"
+}
