@@ -1,0 +1,30 @@
+{
+  "project_id": "56",
+  "contract_name": "Token",
+  "contract_address": "0x6b5944215b352aa72af568344a873e1f8f687321",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership privileges allow unrestricted ether withdrawal",
+    "Ether withdrawal function executed successfully, draining contract balance"
+  ],
+  "attack_path_summary": "The function call sequence enabled the contract owner to open trading and subsequently withdraw all ether from the contract, leaving no funds for token holders.",
+  "critical_functions_involved": [
+    "enableTrading",
+    "rescueEther"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "enableTrading",
+      "caller": "0x6deca948a64fbfbc9ebc034667960f0c1266bf58",
+      "parameters": []
+    },
+    {
+      "function_name": "rescueEther",
+      "caller": "0x6deca948a64fbfbc9ebc034667960f0c1266bf58",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-30T19:58:35.374155"
+}
