@@ -1,0 +1,55 @@
+{
+  "project_id": "75",
+  "contract_name": "HunterContract",
+  "contract_address": "0x2ef2b8709aea415452d5013f3dc3b610051b03c7",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Setting partialDeposit to 0 allows for potential manipulation in liquidity provision.",
+    "Setting partialLiquidityPct to 0 could lead to unexpected behavior in liquidity management.",
+    "transferTokens function allows the owner to transfer all tokens from the contract to their own address."
+  ],
+  "attack_path_summary": "The sequence of setting partialDeposit and partialLiquidityPct to 0, followed by transferring tokens, allows the owner to manipulate liquidity parameters and extract all tokens from the contract, effectively executing a rug pull.",
+  "critical_functions_involved": [
+    "setPartialDeposit",
+    "setPartialLiquidity",
+    "transferTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setPartialDeposit",
+      "caller": "0x14c79753d9ab7afbaa9849470352f32a7d5f01bb",
+      "parameters": [
+        {
+          "name": "_partialDeposit",
+          "type": "uint8",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "setPartialLiquidity",
+      "caller": "0x14c79753d9ab7afbaa9849470352f32a7d5f01bb",
+      "parameters": [
+        {
+          "name": "_partialLiquidityPct",
+          "type": "uint8",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "transferTokens",
+      "caller": "0x14c79753d9ab7afbaa9849470352f32a7d5f01bb",
+      "parameters": [
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T17:52:17.076089"
+}
