@@ -1,0 +1,35 @@
+{
+  "project_id": "103",
+  "contract_name": "Vitaliksdog",
+  "contract_address": "0xf74827965a70fec9b17caacad342d4818d4b9129",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized token transfer",
+    "Owner can recover any ERC20 tokens"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to recover all tokens from the contract, effectively draining user funds.",
+  "critical_functions_involved": [
+    "recoverERC20"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "recoverERC20",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "value": "address(vitaliksdog)"
+        },
+        {
+          "name": "tokenAmount",
+          "type": "uint256",
+          "value": "1312003645767921867331573745992378"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:39:14.116543"
+}
