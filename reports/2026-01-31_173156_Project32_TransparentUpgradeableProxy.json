@@ -1,0 +1,60 @@
+{
+  "project_id": "32",
+  "contract_name": "TransparentUpgradeableProxy",
+  "contract_address": "0x127efeebe2e1ea7dc2aa18f50db99f268b582cfc",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized ownership transfer",
+    "Unauthorized upgrade of implementation",
+    "Execution of arbitrary code via upgradeToAndCall"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized user to transfer ownership and upgrade the contract implementation to a potentially malicious contract, enabling arbitrary code execution.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "upgradeTo",
+    "upgradeToAndCall"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0xabcdef"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T17:31:56.531347"
+}
