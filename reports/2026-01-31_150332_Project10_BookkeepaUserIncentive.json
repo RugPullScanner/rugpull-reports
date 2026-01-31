@@ -1,0 +1,52 @@
+{
+  "project_id": "10",
+  "contract_name": "BookkeepaUserIncentive",
+  "contract_address": "0x1a48b8ba4f8efb18b6eebc8b91ee551abe7956f7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized token withdrawal by owner",
+    "Potential leaking of tokens to owner address"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to set the token address and then withdraw a large amount of tokens to their own address, which is indicative of a rug pull.",
+  "critical_functions_involved": [
+    "setTokenAddress",
+    "withdrawTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setTokenAddress",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_tokenAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawTokens",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "wallet",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "tokens",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T15:03:32.544607"
+}
