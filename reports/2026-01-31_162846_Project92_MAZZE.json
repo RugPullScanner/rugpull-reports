@@ -1,0 +1,36 @@
+{
+  "project_id": "92",
+  "contract_name": "MAZZE",
+  "contract_address": "0xdf1b397c688ea09c707a545dbc419c10bb596ce3",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account due to _getSubAllowance logic",
+    "Potential leaking of tokens from any account"
+  ],
+  "attack_path_summary": "The function call sequence allows unauthorized transfer of tokens from any account by exploiting the _getSubAllowance logic, enabling a rug pull by moving user funds into a private wallet.",
+  "critical_functions_involved": [
+    "transferFrom",
+    "_getSubAllowance"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:28:46.919282"
+}
