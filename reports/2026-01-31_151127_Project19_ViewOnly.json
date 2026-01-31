@@ -1,0 +1,79 @@
+{
+  "project_id": "19",
+  "contract_name": "ViewOnly",
+  "contract_address": "0x3075d11d701f5ccb41358102dd5ad79728e74ce2",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of funds",
+    "Admin-only access control"
+  ],
+  "attack_path_summary": "The function call sequence allows the admin to transfer funds from the contract to any address without restrictions, enabling potential draining of the contract's balance.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "0x",
+            "0x"
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            "0",
+            "1000000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "address(viewonly)"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "0x",
+            "0x"
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            "1000000000000000000",
+            "1000000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T15:11:27.878465"
+}
