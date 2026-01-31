@@ -1,0 +1,45 @@
+{
+  "project_id": "100",
+  "contract_name": "ViewOnly",
+  "contract_address": "0xf23c37f78ee2b4a5c9a7f7fa1f108c44ed7bb9c3",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of funds by non-admin caller"
+  ],
+  "attack_path_summary": "The transfer function was called by an address not matching the admin hash, allowing unauthorized transfer of funds.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            ""
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            1000000000000000000
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:37:11.916158"
+}
