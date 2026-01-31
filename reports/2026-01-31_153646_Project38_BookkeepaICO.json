@@ -1,0 +1,52 @@
+{
+  "project_id": "38",
+  "contract_name": "BookkeepaICO",
+  "contract_address": "0x536ef4fb46ecca2d678ac003c8738addae72291b",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can withdraw an arbitrary amount of tokens from the contract",
+    "Owner has the ability to set the token sale address to any address"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set a token sale address and then withdraw a large amount of tokens from the contract to their own wallet, potentially draining the contract's token balance.",
+  "critical_functions_involved": [
+    "setTokenSaleAddress",
+    "withdrawTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setTokenSaleAddress",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_tokenAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawTokens",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "wallet",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "tokens",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T15:36:46.428103"
+}
