@@ -1,0 +1,56 @@
+{
+  "project_id": "7",
+  "contract_name": "BIFI",
+  "contract_address": "0x142e07fba508e5d41c49b7e2942635af8a3c8547",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Leaking Token: Unauthorized transfer of tokens detected"
+  ],
+  "attack_path_summary": "The function call sequence allowed unauthorized transfer of tokens from one account to another, indicating a potential rug pull scenario.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T14:59:35.030199"
+}
