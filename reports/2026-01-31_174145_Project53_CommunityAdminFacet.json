@@ -1,0 +1,63 @@
+{
+  "project_id": "53",
+  "contract_name": "CommunityAdminFacet",
+  "contract_address": "0x1c62f449058bbeed546823a1a581d28233f7a69c",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized fund recovery by a non-owner address",
+    "Excessive community fee set by a non-owner address"
+  ],
+  "attack_path_summary": "The function call sequence allowed a non-owner address to set an excessive community fee and recover funds, indicating potential unauthorized access and fund misappropriation.",
+  "critical_functions_involved": [
+    "setCommunityFee",
+    "recoverFunds"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setCouncilSafe",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_safe",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000011"
+        }
+      ]
+    },
+    {
+      "function_name": "acceptCouncilSafe",
+      "caller": "0x0000000000000000000000000000000000000011",
+      "parameters": []
+    },
+    {
+      "function_name": "setCommunityFee",
+      "caller": "0x0000000000000000000000000000000000000011",
+      "parameters": [
+        {
+          "name": "_newCommunityFee",
+          "type": "uint256",
+          "value": "100000"
+        }
+      ]
+    },
+    {
+      "function_name": "recoverFunds",
+      "caller": "0x0000000000000000000000000000000000000011",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+        },
+        {
+          "name": "_recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000022"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T17:41:45.929665"
+}
