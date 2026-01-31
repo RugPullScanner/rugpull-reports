@@ -1,0 +1,67 @@
+{
+  "project_id": "79",
+  "contract_name": "OpcodeGridNFT",
+  "contract_address": "0xb7d3ae90ed1f3eee2ce8891e452eaff213362a2c",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to a potentially malicious address",
+    "Addition of a target with a potentially malicious address",
+    "Setting a high mint price",
+    "Withdrawal of funds by the new owner"
+  ],
+  "attack_path_summary": "The function call sequence allows the new owner to set a high mint price, add a potentially malicious target, and withdraw funds, indicating a potential rug pull strategy.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "addTarget",
+    "setMintPrice",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "addTarget",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "value": "MaliciousTarget"
+        }
+      ]
+    },
+    {
+      "function_name": "setMintPrice",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newPrice",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-31T16:16:02.648835"
+}
