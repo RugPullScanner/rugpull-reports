@@ -1,0 +1,133 @@
+{
+  "project_id": "86",
+  "contract_name": "BuyBackBurnProvider",
+  "contract_address": "0xc86fad80d81c72bd74253f0e6800da93b881a7c9",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized token withdrawal by owner",
+    "Complete transfer of token balance to owner address"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to withdraw all tokens from the contract, effectively draining the contract's assets and leaving other token holders with losses.",
+  "critical_functions_involved": [
+    "withdrawToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "updateScheduleStatus",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_scheduleIndex",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_isActive",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "setSchedule",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_scheduleIndex",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_fromToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_toToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "_totalFromTokenAmount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "_fromTokenUsed",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_buybackTimes",
+          "type": "uint256",
+          "value": "1"
+        },
+        {
+          "name": "_buybackInterval",
+          "type": "uint256",
+          "value": "60"
+        },
+        {
+          "name": "_lastExecuted",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_executedCount",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "executeBuybackOffChain",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_scheduleIndex",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_swapAmount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "_swappedAmount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:22:21.085097"
+}
