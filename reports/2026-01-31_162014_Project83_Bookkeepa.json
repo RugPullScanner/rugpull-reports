@@ -1,0 +1,81 @@
+{
+  "project_id": "83",
+  "contract_name": "Bookkeepa",
+  "contract_address": "0xbdf9ddd83ae7fb798a94986d906f1610590a7450",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to address(0), disabling owner-only functions",
+    "Large burn operation executed by non-owner, reducing total supply significantly",
+    "TransferFrom executed by non-owner, moving large token amounts"
+  ],
+  "attack_path_summary": "The function call sequence involves transferring ownership to address(0), effectively renouncing ownership and disabling owner-only functions. A large burn operation by a non-owner drastically reduces the total supply, potentially manipulating market perception of scarcity. Additionally, a non-owner executes a TransferFrom operation, moving significant token amounts, which could be used to drain liquidity.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "burn",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "burn",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "increaseAllowance",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "addedValue",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "sender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "50000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:20:14.428018"
+}
