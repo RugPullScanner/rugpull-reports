@@ -1,0 +1,30 @@
+{
+  "project_id": "21",
+  "contract_name": "FlashUSDTLiquidityBot",
+  "contract_address": "0x3308bf409c1cc6e6272ee999e949d51fb06bf638",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of contract balance to liquidity address",
+    "Potential for draining all contract funds"
+  ],
+  "attack_path_summary": "The function call sequence 'start' followed by 'withdrawal' executed by the owner address results in transferring the entire contract balance to a predefined liquidity address, which is indicative of a rug pull.",
+  "critical_functions_involved": [
+    "start",
+    "withdrawal"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "start",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawal",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-31T15:12:42.822200"
+}
