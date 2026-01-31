@@ -1,0 +1,57 @@
+{
+  "project_id": "76",
+  "contract_name": "ETHICAL",
+  "contract_address": "0xaf78e29d95149f2ffbde8648f3f0beab2844b725",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'approved' function allows the owner to arbitrarily set balances for any account.",
+    "Leaking Token: The 'approved' function can transfer tokens to any account without restrictions."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set an arbitrary balance for an external address and then transfer tokens to another address, enabling unauthorized fund movement.",
+  "critical_functions_involved": [
+    "approved",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "approved",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "uint256",
+          "value": "1000000000"
+        },
+        {
+          "name": "accuracy",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_comptes",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:14:14.340883"
+}
