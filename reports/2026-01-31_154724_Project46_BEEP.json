@@ -1,0 +1,72 @@
+{
+  "project_id": "46",
+  "contract_name": "BEEP",
+  "contract_address": "0x5b13ba1431683a385ab08cb54a4c80244abe2e91",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens to address(0) resulting in burn",
+    "Potential leaking of tokens due to unchecked transferFrom to zero address"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external caller to transfer tokens from another address to the zero address, effectively burning them. This could be exploited to drain user balances by unauthorized burning.",
+  "critical_functions_involved": [
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T15:47:24.575872"
+}
