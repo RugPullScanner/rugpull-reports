@@ -1,0 +1,30 @@
+{
+  "project_id": "3",
+  "contract_name": "FlashUSDTLiquidityBot",
+  "contract_address": "0x0c231ba84b032d644af68d48b36e34bef43a6996",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of contract balance to UniswapV2 address",
+    "Potential for draining contract funds through withdrawal function"
+  ],
+  "attack_path_summary": "The function call sequence 'start' followed by 'withdrawal' allows the transfer of all contract balance to the UniswapV2 address, which could be controlled by the contract owner or a malicious actor, effectively draining the contract's funds.",
+  "critical_functions_involved": [
+    "start",
+    "withdrawal"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "start",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawal",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-31T14:53:37.191274"
+}
