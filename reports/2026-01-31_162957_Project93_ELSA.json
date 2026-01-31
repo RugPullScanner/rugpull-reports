@@ -1,0 +1,73 @@
+{
+  "project_id": "93",
+  "contract_name": "ELSA",
+  "contract_address": "0xdf61661112041172b637587158ec13c840cad540",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account to another",
+    "Transfer of entire token balance to zero address"
+  ],
+  "attack_path_summary": "The sequence involved transferring the entire token balance from an external caller to the zero address, effectively burning the tokens. This could be used to manipulate token supply and value, potentially leading to a rug pull.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "4597000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "4597000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "4597000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:29:57.026255"
+}
