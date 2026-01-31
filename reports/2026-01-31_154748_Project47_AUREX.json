@@ -1,0 +1,30 @@
+{
+  "project_id": "47",
+  "contract_name": "AUREX",
+  "contract_address": "0x5fd6b0413c05a9113d547708901da3aa60f08e6a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized balance transfer to address(0)",
+    "Potential zeroing of user balance"
+  ],
+  "attack_path_summary": "The function call sequence executed the 'bet' function, which transferred the entire balance of an external caller to address(0), effectively burning the tokens and zeroing the user's balance. This could be used to drain user funds and execute a rug pull.",
+  "critical_functions_involved": [
+    "bet"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "bet",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "fxh",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T15:47:48.692362"
+}
