@@ -1,0 +1,40 @@
+{
+  "project_id": "98",
+  "contract_name": "FNDRStaking",
+  "contract_address": "0xea0b30be60f000f351596f836829fc5e3b60566d",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized withdrawal of USDT by the owner",
+    "Potential for draining contract funds through adminWithdraw"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to withdraw a significant amount of USDT from the contract, which could be used to execute a rug pull by draining the contract's funds.",
+  "critical_functions_involved": [
+    "adminWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "adminWithdraw",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "tokenAddr",
+          "type": "address",
+          "value": "address(usdtToken)"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:33:01.251744"
+}
