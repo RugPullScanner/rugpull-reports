@@ -1,0 +1,46 @@
+{
+  "project_id": "74",
+  "contract_name": "LockedyvUSD",
+  "contract_address": "0xab9018a699003a777d690c156045dfc4a7ef3a96",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Excessive fees set by privileged address",
+    "Immediate withdrawal of fees by owner"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set excessive fees and immediately withdraw them, potentially draining the contract of funds.",
+  "critical_functions_involved": [
+    "setFees",
+    "withdrawFees"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFees",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_managementFee",
+          "type": "uint16",
+          "value": "200"
+        },
+        {
+          "name": "_performanceFee",
+          "type": "uint16",
+          "value": "10000"
+        },
+        {
+          "name": "_lockerBonus",
+          "type": "uint16",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawFees",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-31T16:12:50.409786"
+}
