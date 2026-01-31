@@ -1,0 +1,65 @@
+{
+  "project_id": "96",
+  "contract_name": "BST",
+  "contract_address": "0xe9977a4f3e1d697b143c2caeb03114730164a478",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The mint function can be called by the new owner, allowing arbitrary minting of tokens.",
+    "Ownership Transfer: Ownership was transferred to an external address, enabling potential malicious actions.",
+    "Large Transfer: A large transfer of tokens was executed, potentially draining liquidity."
+  ],
+  "attack_path_summary": "The function call sequence involved transferring ownership to an external address, which then used the mint function to create a large number of tokens. These tokens were subsequently transferred, potentially draining liquidity and devaluing the token.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "mint",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-01-31T16:32:20.220470"
+}
