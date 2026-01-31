@@ -1,0 +1,66 @@
+{
+  "project_id": "52",
+  "contract_name": "Indie",
+  "contract_address": "0x6c5570ebf9e2a4c55d41a2392b2aabf4cf8efefe",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership renounced allowing no further control over contract",
+    "Manual swap and transfer of ETH to owner wallet",
+    "High initial buy and sell taxes that can be reduced to zero"
+  ],
+  "attack_path_summary": "The function call sequence involves opening trading, transferring a large portion of tokens, reducing taxes to zero, manually swapping tokens for ETH, and renouncing ownership. This sequence allows the contract owner to extract ETH from the contract and renounce ownership, leaving investors with no recourse.",
+  "critical_functions_involved": [
+    "openTrading_4x344534",
+    "transfer",
+    "reduceFee",
+    "manualSwap",
+    "renounceOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "openTrading_4x344534",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": []
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "950000000 * 10**9"
+        }
+      ]
+    },
+    {
+      "function_name": "reduceFee",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": [
+        {
+          "name": "_newFee",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "manualSwap",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": []
+    },
+    {
+      "function_name": "renounceOwnership",
+      "caller": "0x0000000000000000000000000000000000000000",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-01-31T15:53:26.826758"
+}
