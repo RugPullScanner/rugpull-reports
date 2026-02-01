@@ -1,0 +1,57 @@
+{
+  "project_id": "69",
+  "contract_name": "FulfillHelper",
+  "contract_address": "0x6bdcd1878525a0130da6e506382a29687e8d9ca7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens using rescueToken function",
+    "Unauthorized transfer of native tokens using rescueEth function"
+  ],
+  "attack_path_summary": "The function call sequence allows the guardian to transfer tokens and native currency to an arbitrary address, which can be used to drain funds from the contract.",
+  "critical_functions_involved": [
+    "rescueToken",
+    "rescueEth"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "rescueToken",
+      "caller": "0xd17c9c53e813f4d9f6146710f475a80e1d2d97cb",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueEth",
+      "caller": "0xd17c9c53e813f4d9f6146710f475a80e1d2d97cb",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:02:28.281724"
+}
