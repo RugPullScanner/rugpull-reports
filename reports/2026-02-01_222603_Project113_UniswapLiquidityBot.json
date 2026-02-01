@@ -1,0 +1,30 @@
+{
+  "project_id": "113",
+  "contract_name": "UniswapLiquidityBot",
+  "contract_address": "0xac6051d710954b1363504f4a6d543244d1f73656",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Funds transferred to UniswapV2 address without any checks or conditions",
+    "Withdrawal function allows transferring all contract balance to UniswapV2"
+  ],
+  "attack_path_summary": "The function call sequence 'start' followed by 'withdrawal' allows the owner to transfer all contract funds to the UniswapV2 address, effectively draining the contract of all its assets.",
+  "critical_functions_involved": [
+    "start",
+    "withdrawal"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "start",
+      "caller": "0x2c8dcdb0d672c17fb7e2e734fc1299fe8ea48041",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawal",
+      "caller": "0x2c8dcdb0d672c17fb7e2e734fc1299fe8ea48041",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-01T22:26:03.582208"
+}
