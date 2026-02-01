@@ -1,0 +1,86 @@
+{
+  "project_id": "119",
+  "contract_name": "MyToken",
+  "contract_address": "0xb4fbd0708e602c39728e26c4bc27d10dc0357b5c",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'mint' function was called by an account that was granted the MINTER_ROLE, allowing arbitrary minting of tokens.",
+    "Leaking Token: The 'transfer' function was used to move a large amount of tokens to another account, followed by a 'burn' operation, effectively draining the tokens."
+  ],
+  "attack_path_summary": "The function call sequence allowed an account to be granted the MINTER_ROLE, enabling it to mint a large amount of tokens. These tokens were then transferred to another account and subsequently burned, simulating a rug pull by draining the token supply.",
+  "critical_functions_involved": [
+    "grantRole",
+    "mint",
+    "transfer",
+    "burn"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "grantRole",
+      "caller": "0xf9d9219aaf5806af51ab192f48fed69f53a868e2",
+      "parameters": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "value": "0x00"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xf9d9219aaf5806af51ab192f48fed69f53a868e2"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "burn",
+      "caller": "0xf9d9219aaf5806af51ab192f48fed69f53a868e2",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0xf9d9219aaf5806af51ab192f48fed69f53a868e2"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:29:30.138701"
+}
