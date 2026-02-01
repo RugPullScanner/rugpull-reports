@@ -1,0 +1,89 @@
+{
+  "project_id": "118",
+  "contract_name": "CYBER",
+  "contract_address": "0xb4bb340b1874372a2bd7eeec362f96db89b672cb",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account",
+    "Potential leaking of tokens through claimToken function"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized transfer of tokens from the contract to an external address, indicating a potential rug pull scenario.",
+  "critical_functions_involved": [
+    "claimToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x4d274bb3c84c612545b89caa26d88365945c130e",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setDepositSwitch",
+      "caller": "0x4d274bb3c84c612545b89caa26d88365945c130e",
+      "parameters": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "setLpAddress",
+      "caller": "0x4d274bb3c84c612545b89caa26d88365945c130e",
+      "parameters": [
+        {
+          "name": "lpAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x4d274bb3c84c612545b89caa26d88365945c130e",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "claimToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(cyber)"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:28:40.366896"
+}
