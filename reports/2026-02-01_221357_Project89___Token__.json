@@ -1,0 +1,69 @@
+{
+  "project_id": "89",
+  "contract_name": "__Token__",
+  "contract_address": "0x8c9313651ccdd86d601ff9326be95b3504c0dae3",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The sequence involves minting a large amount of tokens to an external address and then transferring them to another address, potentially draining liquidity and restricting other users from selling tokens.",
+  "critical_functions_involved": [
+    "setOptions",
+    "configure",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setOptions",
+      "caller": "0x202c0bd9e1253541e26610980bd4b2313f8ba1d1",
+      "parameters": [
+        {
+          "name": "_option",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "deinitialize",
+      "caller": "0x202c0bd9e1253541e26610980bd4b2313f8ba1d1",
+      "parameters": []
+    },
+    {
+      "function_name": "configure",
+      "caller": "0x202c0bd9e1253541e26610980bd4b2313f8ba1d1",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x202c0bd9e1253541e26610980bd4b2313f8ba1d1",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:13:57.538700"
+}
