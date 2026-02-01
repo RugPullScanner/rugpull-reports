@@ -1,0 +1,92 @@
+{
+  "project_id": "109",
+  "contract_name": "DCBVault",
+  "contract_address": "0xa509e1cdeea7d464c8d22a6bd0d2d2b01fe81e68",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "High deposit fee set to 9999 basis points, effectively allowing the contract owner to drain deposits.",
+    "Manager role granted to an external caller, enabling unauthorized access to privileged functions.",
+    "Withdrawal of leftovers and transfer of stuck tokens to owner's address, potentially draining funds."
+  ],
+  "attack_path_summary": "The function call sequence allows an external caller to gain manager privileges, set exorbitant deposit fees, withdraw funds, and transfer tokens to the owner's address, effectively enabling a rug pull.",
+  "critical_functions_involved": [
+    "setManagerRole",
+    "setDepositFee",
+    "withdrawLeftovers",
+    "transferStuckToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setManagerRole",
+      "caller": "0x78b4fa341952b38396755af9c2031c5a588d6806",
+      "parameters": [
+        {
+          "name": "_user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_status",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "pause",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawLeftovers",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_pid",
+          "type": "uint256",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "function_name": "setDepositFee",
+      "caller": "0x78b4fa341952b38396755af9c2031c5a588d6806",
+      "parameters": [
+        {
+          "name": "_feeReceiver",
+          "type": "address",
+          "value": "0x78b4fa341952b38396755af9c2031c5a588d6806"
+        },
+        {
+          "name": "_depositFee",
+          "type": "uint256",
+          "value": 9999
+        }
+      ]
+    },
+    {
+      "function_name": "transferStuckToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "address(dcbvault)"
+        },
+        {
+          "name": "_to",
+          "type": "address",
+          "value": "0x78b4fa341952b38396755af9c2031c5a588d6806"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": 1000000000
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:24:06.305980"
+}
