@@ -1,0 +1,70 @@
+{
+  "project_id": "149",
+  "contract_name": "DiamondInit",
+  "contract_address": "0xd9468aa14a37402cf41435b07e1f048a1ce79717",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized disbursement of assets to an external caller",
+    "Role granted to an external caller allowing critical operations",
+    "Update of reservoir address to an external caller"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external caller to be granted a role with critical permissions, update the reservoir address to themselves, and then disburse assets to their own address, effectively draining the contract.",
+  "critical_functions_involved": [
+    "grantRole",
+    "updateReservoir",
+    "disburse"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "grantRole",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "value": "0x8b16b0b80f67879a61157c5541d94886825d45098bee58e37e2d2e87b2fe367b"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "updateReservoir",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newReservoir",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "disburse",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "asset",
+          "type": "address",
+          "value": "address(contract_self)"
+        },
+        {
+          "name": "assets",
+          "type": "uint256",
+          "value": "2000000"
+        },
+        {
+          "name": "winner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:50:58.463474"
+}
