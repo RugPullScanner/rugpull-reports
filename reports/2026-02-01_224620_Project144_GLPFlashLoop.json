@@ -1,0 +1,102 @@
+{
+  "project_id": "144",
+  "contract_name": "GLPFlashLoop",
+  "contract_address": "0xd48219c65c214e63ee06dd01f308bac4689ed88f",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Token whitelist manipulation",
+    "Excessive flash loan amount",
+    "Unauthorized token withdrawal"
+  ],
+  "attack_path_summary": "The sequence involves whitelisting a malicious token, executing a flash loan with excessive amounts, and withdrawing unauthorized tokens, which could lead to draining the contract's funds.",
+  "critical_functions_involved": [
+    "setTokenWhitelist",
+    "updateParameters",
+    "executeMultiTokenArbitrage",
+    "withdrawToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "pause",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": []
+    },
+    {
+      "function_name": "setTokenWhitelist",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x000000000000000000000000000000000000dead"
+        },
+        {
+          "name": "allowed",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "updateParameters",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "_minProfitBps",
+          "type": "uint256",
+          "value": "5"
+        },
+        {
+          "name": "_maxFlashLoan",
+          "type": "uint256",
+          "value": "1000000000000000"
+        },
+        {
+          "name": "_slippageTolerance",
+          "type": "uint256",
+          "value": "200"
+        }
+      ]
+    },
+    {
+      "function_name": "executeMultiTokenArbitrage",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "strategy",
+          "type": "uint8",
+          "value": "2"
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[]",
+          "value": "[1000000000000000]"
+        },
+        {
+          "name": "tokens",
+          "type": "address[]",
+          "value": "[0x000000000000000000000000000000000000dead]"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x000000000000000000000000000000000000dead"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:46:20.946300"
+}
