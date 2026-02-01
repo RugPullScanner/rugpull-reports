@@ -1,0 +1,49 @@
+{
+  "project_id": "112",
+  "contract_name": "ViewOnly",
+  "contract_address": "0xaa6b0524ebfb6a72b37e145704be88c284a696aa",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of funds via the transfer function",
+    "Potential for arbitrary fund movement by privileged address"
+  ],
+  "attack_path_summary": "The transfer function allows the privileged admin address to move funds to any target addresses without restrictions, enabling a potential rug pull by draining funds from the contract.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x58f9b66af3c6d876b28a57613d568439ef18f7c7",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "",
+            ""
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            1000000000000000000,
+            2000000000000000000
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:25:52.116022"
+}
