@@ -1,0 +1,69 @@
+{
+  "project_id": "52",
+  "contract_name": "LiquidationExecutor",
+  "contract_address": "0x568d5689487b202a896999294df30152e910e1a8",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of ERC20 tokens using RescueERC20",
+    "Unauthorized transfer of ETH using RescueETH"
+  ],
+  "attack_path_summary": "The function call sequence allowed a non-owner address to change the owner and then execute RescueERC20 and RescueETH, transferring tokens and ETH to an external address, which is consistent with rug pull behavior.",
+  "critical_functions_involved": [
+    "SetOwner",
+    "RescueERC20",
+    "RescueETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "SetOwner",
+      "caller": "0x323d2567433fa40f4de372e53c4b996bf9a7100d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "RescueERC20",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x111111125421cA6dc452d289314280a0f8842A65"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "RescueETH",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T21:54:32.765465"
+}
