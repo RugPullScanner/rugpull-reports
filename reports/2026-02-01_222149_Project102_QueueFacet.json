@@ -1,0 +1,110 @@
+{
+  "project_id": "102",
+  "contract_name": "QueueFacet",
+  "contract_address": "0xa00e5c3e0b363183ab06c8f8c9302fbfb7a175d2",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "updateMaxPositionTotalAssetsDivisor set to 0, potentially allowing unlimited asset positions",
+    "updateUrl, updatePath, and updateJobId set to malicious values, potentially redirecting random number requests to a malicious source"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set critical parameters to malicious values, potentially enabling unauthorized control over asset positions and random number generation. This could lead to manipulation of market conditions and unauthorized asset extraction.",
+  "critical_functions_involved": [
+    "updateMaxPositionTotalAssetsDivisor",
+    "updateUrl",
+    "updatePath",
+    "updateJobId"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "updateSigner",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newSigner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "updateReservoir",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newReservoir",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "updateDefaultAsset",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newDefaultAsset",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "updateRNG",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newRNG",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "updateUrl",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newUrl",
+          "type": "string",
+          "value": "http://malicious-url.com"
+        }
+      ]
+    },
+    {
+      "function_name": "updatePath",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newPath",
+          "type": "string",
+          "value": "malicious_path"
+        }
+      ]
+    },
+    {
+      "function_name": "updateJobId",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newJobId",
+          "type": "string",
+          "value": "malicious_job_id"
+        }
+      ]
+    },
+    {
+      "function_name": "updateMaxPositionTotalAssetsDivisor",
+      "caller": "0xd6d85829708a17d360a12c921b19f4c4d5f6da88",
+      "parameters": [
+        {
+          "name": "newMaxPositionTotalAssetsDivisor",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-01T22:21:49.881295"
+}
