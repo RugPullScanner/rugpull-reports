@@ -1,0 +1,54 @@
+{
+  "project_id": "45",
+  "contract_name": "OperoseVault",
+  "contract_address": "0x6bbd6ba53a2b39115fb495d2cb74dee02df76816",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The 'withdraw' function was called with an excessive amount parameter, which could potentially drain the contract's funds.",
+    "The 'collectFees' function was called with an empty swaps array, indicating a potential misuse of fee collection without proper swaps."
+  ],
+  "attack_path_summary": "The function call sequence allows the privileged owner to set the yield fee to zero, collect fees without performing swaps, and withdraw an excessive amount from the vault, potentially draining the contract's funds.",
+  "critical_functions_involved": [
+    "setYieldFee",
+    "collectFees",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setYieldFee",
+      "caller": "0x0d49eb709af6df5087c5b682168599254f0d4d1f",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "collectFees",
+      "caller": "0x0d49eb709af6df5087c5b682168599254f0d4d1f",
+      "parameters": [
+        {
+          "name": "swaps",
+          "type": "SwapInfo[]",
+          "value": "[]"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0d49eb709af6df5087c5b682168599254f0d4d1f",
+      "parameters": [
+        {
+          "name": "auth",
+          "type": "VaultAuth",
+          "value": "{ \"nonce\": \"0x00000000000000000000000000000000\", \"deadline\": \"9999999999\", \"amount\": \"999999999999999999999999999\", \"vaultSwaps\": [], \"compoundSwaps\": [] }"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T11:05:36.889869"
+}
