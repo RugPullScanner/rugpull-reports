@@ -1,0 +1,77 @@
+{
+  "project_id": "70",
+  "contract_name": "PUSDT",
+  "contract_address": "0x9f7eac2e4795ccaaea5a62d2806d6374970dffc2",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "High mint and burn fees set to 95%",
+    "Fee recipient changed to an external address",
+    "Owner minting and burning tokens with high fees"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set extremely high mint and burn fees (95%) and redirect these fees to an external address. The owner can then mint and burn tokens, effectively transferring a large portion of the token supply to the fee recipient, which can be controlled by the owner or a malicious actor. This setup enables a rug pull by draining value from the token holders.",
+  "critical_functions_involved": [
+    "setFeeRecipient",
+    "setFees",
+    "mint",
+    "burn"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFeeRecipient",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "_feeRecipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setFees",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "_mintFee",
+          "type": "uint256",
+          "value": "9500"
+        },
+        {
+          "name": "_burnFee",
+          "type": "uint256",
+          "value": "9500"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xd935366889a3dece4389d6579df77cd8bcaa0e10"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "burn",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T11:22:37.830892"
+}
