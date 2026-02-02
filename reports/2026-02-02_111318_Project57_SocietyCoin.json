@@ -1,0 +1,41 @@
+{
+  "project_id": "57",
+  "contract_name": "SocietyCoin",
+  "contract_address": "0x86bf9b59a86036698d4405eb45f47c29f2ad3ade",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Renounce ownership after transferring a large amount of tokens",
+    "Transfer of entire token supply to external address"
+  ],
+  "attack_path_summary": "The function call sequence involved transferring the entire token supply to an external address followed by renouncing ownership, effectively leaving the contract without an owner and enabling the external address to potentially execute a rug pull.",
+  "critical_functions_involved": [
+    "transfer",
+    "renounceOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x1ab530977b16217a137c2e9fd3ab6828af2810dd",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "renounceOwnership",
+      "caller": "0x1ab530977b16217a137c2e9fd3ab6828af2810dd",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-02T11:13:18.729044"
+}
