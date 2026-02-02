@@ -1,0 +1,73 @@
+{
+  "project_id": "42",
+  "contract_name": "VRTLiquidityLock",
+  "contract_address": "0x68abfbff8ed3114a8c6e990e37e4c0e31b24ff1e",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized withdrawal attempt",
+    "Fee manipulation to zero"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized address to attempt a withdrawal by setting fees to zero, potentially enabling a rug pull by bypassing fee checks.",
+  "critical_functions_involved": [
+    "setFees",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFees",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "_short",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_mid",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_long",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "lockLiquidity",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x2222222222222222222222222222222222222222"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "unlockTime",
+          "type": "uint256",
+          "value": "1893456000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "lockId",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T11:03:55.250824"
+}
