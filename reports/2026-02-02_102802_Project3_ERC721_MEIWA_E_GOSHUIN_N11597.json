@@ -1,0 +1,71 @@
+{
+  "project_id": "3",
+  "contract_name": "ERC721_MEIWA_E_GOSHUIN_N11597",
+  "contract_address": "0x09041667ceb32b685f8dfac1cfc34eb92c0d063c",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized minting by non-owner",
+    "Unauthorized burning by non-owner",
+    "Ownership transfer by non-owner"
+  ],
+  "attack_path_summary": "The function call sequence allows a non-owner to mint, burn, and transfer ownership, which can be exploited to drain funds and execute a rug pull.",
+  "critical_functions_involved": [
+    "mint",
+    "burn",
+    "transferOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "quantity",
+          "type": "uint256",
+          "value": "50"
+        }
+      ]
+    },
+    {
+      "function_name": "setUsed",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "value": "5"
+        },
+        {
+          "name": "value",
+          "type": "bool",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "function_name": "burn",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x612863633b93c9888dcaeb4ff4107ae3aea89350"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T10:28:02.828644"
+}
