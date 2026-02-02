@@ -1,0 +1,69 @@
+{
+  "project_id": "53",
+  "contract_name": "Mask",
+  "contract_address": "0x7a2f3654d856221b5d004f3799c0ccc58ee0ad73",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The function call sequence enabled an external caller to mint a large amount of tokens due to God Mode privileges, followed by transferring these tokens to a developer wallet, potentially enabling a rug pull.",
+  "critical_functions_involved": [
+    "setGodMode",
+    "mint",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setGodMode",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "status",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x9BeD8028680cD4176AbF9e906077Dd6F1a68Bd7c"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T11:11:32.561048"
+}
