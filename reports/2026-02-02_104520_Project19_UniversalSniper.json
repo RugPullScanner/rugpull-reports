@@ -1,0 +1,51 @@
+{
+  "project_id": "19",
+  "contract_name": "UniversalSniper",
+  "contract_address": "0x2f7c4b9422bf7a2ed98842a4361002553f3eae7c",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized token withdrawal by owner",
+    "Execution of arbitrary calls by owner"
+  ],
+  "attack_path_summary": "The owner executed arbitrary calls to a malicious contract and then withdrew valuable tokens, which could drain the contract's assets.",
+  "critical_functions_involved": [
+    "executeArbitraryCalls",
+    "withdrawToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "executeArbitraryCalls",
+      "caller": "0x00000d79f9a72f59b9fc2b32d578408979100000",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "address_of_malicious_contract"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "data_to_execute_malicious_action"
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x00000d79f9a72f59b9fc2b32d578408979100000",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address_of_valuable_token"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T10:45:20.469869"
+}
