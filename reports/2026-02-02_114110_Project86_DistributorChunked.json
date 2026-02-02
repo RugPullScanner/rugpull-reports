@@ -1,0 +1,65 @@
+{
+  "project_id": "86",
+  "contract_name": "DistributorChunked",
+  "contract_address": "0xb7e47f0a2d11a6fd13d9e9989940218c80a6ef2e",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "HIGH",
+  "triggered_conditions": [
+    "Owner can transfer any token balance from the contract to themselves using the rescue function."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to transfer a specified amount of tokens from the contract to their own address, potentially draining the contract of funds.",
+  "critical_functions_involved": [
+    "rescue"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "distributeRange",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "start",
+          "type": "uint256",
+          "value": "200"
+        },
+        {
+          "name": "end",
+          "type": "uint256",
+          "value": "400"
+        },
+        {
+          "name": "_paymentToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_securityToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_totalAmount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    },
+    {
+      "function_name": "rescue",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T11:41:10.366031"
+}
