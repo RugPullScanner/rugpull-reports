@@ -1,0 +1,23 @@
+{
+  "project_id": "103",
+  "contract_name": "FinolEngineV7_USDT",
+  "contract_address": "0xd8c4494b265c093001ca1fd707e8fe201c6e8fdc",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Emergency withdrawal by owner"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to withdraw all USDT tokens from the contract, effectively draining the contract's liquidity.",
+  "critical_functions_involved": [
+    "emergencyWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyWithdraw",
+      "caller": "0x76fa0cae01135bd6f9b99ce38f8d0e7334d841c5",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-02T11:55:59.811602"
+}
