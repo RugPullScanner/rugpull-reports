@@ -1,0 +1,79 @@
+{
+  "project_id": "106",
+  "contract_name": "ZBCLenderFees",
+  "contract_address": "0xe564863c5060160edce33c8aa1c4cbabe6a2e304",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized withdrawal of tokens",
+    "Unauthorized withdrawal of ETH"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized address to withdraw tokens and ETH from the contract, indicating a potential rug pull scenario.",
+  "critical_functions_involved": [
+    "withdraw",
+    "withdrawETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setAdmin",
+      "caller": "0xcfd4ad1043e86ca65417f3912b001383d49250e8",
+      "parameters": [
+        {
+          "name": "admin_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setMutual",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "mutual_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(zbclenderfees)"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawETH",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T11:57:53.229224"
+}
