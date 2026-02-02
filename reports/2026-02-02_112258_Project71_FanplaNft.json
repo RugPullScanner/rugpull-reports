@@ -1,0 +1,83 @@
+{
+  "project_id": "71",
+  "contract_name": "FanplaNft",
+  "contract_address": "0x9fa353d48579283aedc40b346edbdd0826337960",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The adminMint function allows arbitrary minting of tokens to any address without restriction.",
+    "Limiting Sell Order: The setSBTMode function can restrict token transfers, potentially allowing only the contract owner to sell tokens.",
+    "Leaking Token: The setTokenPrice function set the token price to zero, enabling potential unauthorized transfers or sales."
+  ],
+  "attack_path_summary": "The function call sequence allows the contract owner to mint a large number of tokens to a specific address, set the token price to zero, and enable SBT mode to restrict transfers. This combination can be used to execute a rug pull by minting excessive tokens, setting their value to zero, and restricting other users from selling, while the owner can still sell or transfer tokens.",
+  "critical_functions_involved": [
+    "adminMint",
+    "setSBTMode",
+    "setTokenPrice"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "pause",
+      "caller": "0x2a21825055cb579c4d9c94d676c1c5ed2fee12dc",
+      "parameters": []
+    },
+    {
+      "function_name": "setSBTMode",
+      "caller": "0x2a21825055cb579c4d9c94d676c1c5ed2fee12dc",
+      "parameters": [
+        {
+          "name": "bool_",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "setMaxSupply",
+      "caller": "0x2a21825055cb579c4d9c94d676c1c5ed2fee12dc",
+      "parameters": [
+        {
+          "name": "newMaxSupply",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setTokenPrice",
+      "caller": "0x2a21825055cb579c4d9c94d676c1c5ed2fee12dc",
+      "parameters": [
+        {
+          "name": "newPrice",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "adminMint",
+      "caller": "0x2a21825055cb579c4d9c94d676c1c5ed2fee12dc",
+      "parameters": [
+        {
+          "name": "recipients",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001"
+          ]
+        },
+        {
+          "name": "numberOfTokens",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "unpause",
+      "caller": "0x2a21825055cb579c4d9c94d676c1c5ed2fee12dc",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-02T11:22:58.039911"
+}
