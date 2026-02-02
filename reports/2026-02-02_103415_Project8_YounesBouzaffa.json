@@ -1,0 +1,52 @@
+{
+  "project_id": "8",
+  "contract_name": "YounesBouzaffa",
+  "contract_address": "0x12f21cfef52d16db0e6ec1f07e0e3fff673af484",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Excessive Minting by Owner"
+  ],
+  "attack_path_summary": "The owner was able to mint a large number of tokens to an external address, followed by an attempted transfer of more tokens than the owner initially possessed, indicating potential manipulation of token supply.",
+  "critical_functions_involved": [
+    "mint",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "mint",
+      "caller": "0x3d1c66f55e4971246609d809a51be58d5ea6d15c",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x3d1c66f55e4971246609d809a51be58d5ea6d15c",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "15000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T10:34:15.768595"
+}
