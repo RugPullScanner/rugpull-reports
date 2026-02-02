@@ -1,0 +1,70 @@
+{
+  "project_id": "2",
+  "contract_name": "Mask",
+  "contract_address": "0x020dc37e9429829f010ab2d5a0364359250fae4a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'mint' function allows arbitrary minting of tokens by accounts with God Mode.",
+    "Limiting Sell Order: The 'getSellLimit' function restricts selling based on holding duration, potentially allowing privileged accounts to bypass this restriction.",
+    "Leaking Token: The 'transfer' function includes exemptions for God Mode accounts, allowing them to bypass normal transfer restrictions."
+  ],
+  "attack_path_summary": "The function call sequence allowed an account to be set to God Mode, enabling it to mint a large number of tokens and transfer them without restrictions, facilitating a potential rug pull by dumping these tokens.",
+  "critical_functions_involved": [
+    "setGodMode",
+    "mint",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setGodMode",
+      "caller": "0x9bed8028680cd4176abf9e906077dd6f1a68bd7c",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "status",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-02T10:27:29.285857"
+}
