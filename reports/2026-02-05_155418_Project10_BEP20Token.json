@@ -1,0 +1,73 @@
+{
+  "project_id": "10",
+  "contract_name": "BEP20Token",
+  "contract_address": "0x1979a95ba86946b73e04a1c11768de3eeaaeef51",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Unauthorized Ownership Transfer"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized transfer of ownership followed by minting a large amount of tokens to an external address, enabling a potential rug pull scenario.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "mint"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "pause",
+      "caller": "0x6e500fbd27531671046b20a2b39e840477cc8f21",
+      "parameters": []
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x6e500fbd27531671046b20a2b39e840477cc8f21",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "unpause",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-05T15:54:18.533153"
+}
