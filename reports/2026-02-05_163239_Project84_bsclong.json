@@ -1,0 +1,73 @@
+{
+  "project_id": "84",
+  "contract_name": "bsclong",
+  "contract_address": "0x99ffb13f5f49e08084cd07d63178524eb68b6b62",
+  "iteration": 8,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Leaking Token",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The sequence involved transferring a large amount of tokens from the owner to an external address and then approving another external address to transfer the same amount, which failed due to a hidden condition restricting certain addresses from transferring tokens.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x53a09cc85ff5e44641fc5d7b532ca748856bed99",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x53a09cc85ff5e44641fc5d7b532ca748856bed99",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x53a09cc85ff5e44641fc5d7b532ca748856bed99"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-05T16:32:39.833820"
+}
