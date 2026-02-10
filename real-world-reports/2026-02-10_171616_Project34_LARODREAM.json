@@ -1,0 +1,42 @@
+{
+  "project_id": "34",
+  "contract_name": "LARODREAM",
+  "contract_address": "0x43adebc2b3b4dbed1bd6f1ee7bf188421f265fb1",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from contract to operator",
+    "Operator can withdraw excessive funds from user accounts"
+  ],
+  "attack_path_summary": "The function call sequence allows the operator to authenticate a large amount of tokens and then withdraw funds from user accounts without restrictions, potentially draining the contract.",
+  "critical_functions_involved": [
+    "authincateUser",
+    "withdrawStakingR"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "authincateUser",
+      "caller": "0x0eed957928642ca8027acabd8166a3ec26036e6e",
+      "parameters": [
+        {
+          "name": "_authAmount",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawStakingR",
+      "caller": "0x0eed957928642ca8027acabd8166a3ec26036e6e",
+      "parameters": [
+        {
+          "name": "_user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:16:16.517243"
+}
