@@ -1,0 +1,76 @@
+{
+  "project_id": "2",
+  "contract_name": "TS",
+  "contract_address": "0x038f0caa8a5d792a7667bf654005541ee67c2bde",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external address",
+    "Blacklist function can restrict token transfers",
+    "High sell fund fee set by owner"
+  ],
+  "attack_path_summary": "The sequence involved transferring ownership to an external address, enabling the blacklist for an external address, and setting a high sell fund fee. This combination allows the new owner to restrict token transfers and impose high fees, potentially leading to a rug pull.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "setBlackList",
+    "setSellFundFee"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setSellFundFee",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "fundFee",
+          "type": "uint256",
+          "value": "5000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setBlackList",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "addr",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "enable",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x3772Df1318F612830858004FcdAFEcABf1e82025"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T16:58:45.761657"
+}
