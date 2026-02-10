@@ -1,0 +1,79 @@
+{
+  "project_id": "140",
+  "contract_name": "Toknify",
+  "contract_address": "0xf95b832e8a4921162a262bbe82e278241a30ff5b",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to another address followed by token rescue",
+    "RescueToken function allows transfer of tokens to arbitrary address"
+  ],
+  "attack_path_summary": "The sequence involved transferring ownership to a new address, which then immediately executed the rescueToken function to transfer a large amount of tokens to another address. This indicates a potential rug pull where the owner moves tokens out of the contract.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "rescueToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x3af75af6f056d4d72c1675da919aebf908a109d6",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x40492810a7de793eef0dfb3a58338fdfea511047"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x40492810a7de793eef0dfb3a58338fdfea511047",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x3af75af6f056d4d72c1675da919aebf908a109d6"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setAssetPathFees",
+      "caller": "0x40492810a7de793eef0dfb3a58338fdfea511047",
+      "parameters": [
+        {
+          "name": "idx",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "newBuyFees",
+          "type": "uint24[]",
+          "value": [
+            5000,
+            3000
+          ]
+        },
+        {
+          "name": "newSellFees",
+          "type": "uint24[]",
+          "value": [
+            5000,
+            3000
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:30:30.795029"
+}
