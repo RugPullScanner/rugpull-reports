@@ -1,0 +1,81 @@
+{
+  "project_id": "122",
+  "contract_name": "Toknify",
+  "contract_address": "0xe14dfb774c8280da470fca68151a485a55f4538a",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to a new owner",
+    "Maximum redeem fee set",
+    "Rescue token function executed to transfer significant token amount to an external address"
+  ],
+  "attack_path_summary": "The sequence involved transferring ownership to a new address, setting the maximum redeem fee, and executing the rescueToken function to transfer a significant amount of WBNB to an external address. This could indicate preparation for a rug pull by maximizing fees and extracting valuable tokens.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "setRedeemFeeBps",
+    "rescueToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x4e656459ed25bf986eea1196bc1b00665401645d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x3af75af6f056d4d72c1675da919aebf908a109d6"
+        }
+      ]
+    },
+    {
+      "function_name": "setRedeemFeeBps",
+      "caller": "0x3af75af6f056d4d72c1675da919aebf908a109d6",
+      "parameters": [
+        {
+          "name": "newFeeBps",
+          "type": "uint16",
+          "value": "1000"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x3af75af6f056d4d72c1675da919aebf908a109d6",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "5000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "redeemToStable",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "tokAmount",
+          "type": "uint256",
+          "value": "5000000000000000000"
+        },
+        {
+          "name": "slippageBps",
+          "type": "uint16",
+          "value": "50"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:17:33.603856"
+}
