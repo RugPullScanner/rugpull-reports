@@ -1,0 +1,57 @@
+{
+  "project_id": "16",
+  "contract_name": "FeeSplitter",
+  "contract_address": "0x2d353a52da9e4ead947f27931a26e0797a000509",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unlimited token transfer capability by governance",
+    "Ability to transfer all tokens to an arbitrary address"
+  ],
+  "attack_path_summary": "The function call sequence allows the governance address to update the split to the maximum (100%) for a specific receiver and then use the rescue function to transfer all tokens to that receiver, effectively draining the contract.",
+  "critical_functions_involved": [
+    "updateSplit",
+    "rescue"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "updateSplit",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_newSplit",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "rescue",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T21:20:39.829958"
+}
