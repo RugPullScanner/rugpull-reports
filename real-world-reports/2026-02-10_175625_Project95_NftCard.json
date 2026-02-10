@@ -1,0 +1,83 @@
+{
+  "project_id": "95",
+  "contract_name": "NftCard",
+  "contract_address": "0xb89e3e6657846af2f61c3bf8e9a7bdd624798b63",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to mint a large number of tokens and update the buyback amount to an excessively high value, potentially enabling unauthorized transfer of tokens and extraction of assets.",
+  "critical_functions_involved": [
+    "mintBatch",
+    "updateBuyBackAmount"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "mintBatch",
+      "caller": "0x9d592e2f50f73682f652f8205a445c68a1dfb266",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "origin",
+          "type": "address",
+          "value": "0x9d592e2f50f73682f652f8205a445c68a1dfb266"
+        },
+        {
+          "name": "stampFees",
+          "type": "uint256",
+          "value": "250"
+        },
+        {
+          "name": "isOfficial",
+          "type": "bool",
+          "value": "true"
+        },
+        {
+          "name": "count",
+          "type": "uint256",
+          "value": "100"
+        },
+        {
+          "name": "buyBackAmount",
+          "type": "uint256",
+          "value": "150"
+        }
+      ]
+    },
+    {
+      "function_name": "setMaxBbAmountOveride",
+      "caller": "0x9d592e2f50f73682f652f8205a445c68a1dfb266",
+      "parameters": [
+        {
+          "name": "_maxBbAmountOveride",
+          "type": "uint256",
+          "value": "100000"
+        }
+      ]
+    },
+    {
+      "function_name": "updateBuyBackAmount",
+      "caller": "0x9d592e2f50f73682f652f8205a445c68a1dfb266",
+      "parameters": [
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "buyBackAmount",
+          "type": "uint256",
+          "value": "100000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:56:25.525573"
+}
