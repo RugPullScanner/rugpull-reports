@@ -1,0 +1,49 @@
+{
+  "project_id": "138",
+  "contract_name": "DOGEQUEEN",
+  "contract_address": "0xf5fd714694d9f24652ab8d84f8175fea4abf1ec9",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an arbitrary address",
+    "Unauthorized withdrawal of ETH by new owner",
+    "Attempted withdrawal of tokens by new owner"
+  ],
+  "attack_path_summary": "The function call sequence involved transferring ownership to an arbitrary address, which then executed unauthorized withdrawals of ETH and attempted to withdraw tokens. This sequence demonstrates a potential rug pull scenario where control is transferred to a malicious entity, allowing them to drain funds.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawStuckETH",
+    "withdrawStuckTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x1fbfd007ef4b0471a3eb55fa7cac4aa26c9f78a5",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawStuckETH",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawStuckTokens",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000004"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:28:43.579133"
+}
