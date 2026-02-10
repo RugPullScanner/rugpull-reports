@@ -1,0 +1,30 @@
+{
+  "project_id": "21",
+  "contract_name": "FlashUSDTLiquidityBot",
+  "contract_address": "0x3308bf409c1cc6e6272ee999e949d51fb06bf638",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of contract balance to liquidity address",
+    "Direct transfer of entire contract balance without checks"
+  ],
+  "attack_path_summary": "The function call sequence 'start' and 'withdrawal' executed by the owner address directly transferred the entire contract balance to a predefined liquidity address, which could be controlled by the contract owner, allowing them to drain all funds.",
+  "critical_functions_involved": [
+    "start",
+    "withdrawal"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "start",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawal",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T21:25:00.207056"
+}
