@@ -1,0 +1,30 @@
+{
+  "project_id": "80",
+  "contract_name": "SCYNT",
+  "contract_address": "0xb950e954e8dae080ca6941776c31a4715e77d1b7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "HIGH",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account",
+    "Potential leaking of tokens via roberto function"
+  ],
+  "attack_path_summary": "The function call sequence executed the 'roberto' function, which allows the caller to transfer all tokens from any specified address to the zero address, effectively burning them without the owner's consent. This can be used to drain user funds and execute a rug pull.",
+  "critical_functions_involved": [
+    "roberto"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "roberto",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "fxh",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:16:40.677561"
+}
