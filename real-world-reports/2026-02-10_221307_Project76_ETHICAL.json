@@ -1,0 +1,56 @@
+{
+  "project_id": "76",
+  "contract_name": "ETHICAL",
+  "contract_address": "0xaf78e29d95149f2ffbde8648f3f0beab2844b725",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function"
+  ],
+  "attack_path_summary": "The 'approved' function allows the owner to arbitrarily increase the token balance of any account without any restrictions, effectively enabling a hidden minting capability. This was used to increase the owner's balance and then transfer a large amount of tokens to another address, which could be used to drain liquidity pools.",
+  "critical_functions_involved": [
+    "approved",
+    "Confirm"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "approved",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "uint256",
+          "value": "10000"
+        },
+        {
+          "name": "accuracy",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_comptes",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:13:07.499228"
+}
