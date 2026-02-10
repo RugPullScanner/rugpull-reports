@@ -1,0 +1,92 @@
+{
+  "project_id": "130",
+  "contract_name": "BNB",
+  "contract_address": "0xe7b51a24c3889bfc313066937192464824208888",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The owner can whitelist addresses for fee exemption, potentially allowing privileged accounts to bypass transaction fees.",
+    "The owner can set the fund address to their own address, enabling them to claim the entire contract balance.",
+    "The owner can claim the contract's native token balance and buyback funds, effectively draining the contract."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to whitelist addresses, set the fund address to their own, and then claim significant amounts of the contract's native token balance and buyback funds, which can be indicative of a rug pull.",
+  "critical_functions_involved": [
+    "batchSetFeeWhiteList",
+    "setFundAddress",
+    "claimBalance",
+    "claimBuyback",
+    "claimToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "batchSetFeeWhiteList",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "addr",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "enable",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "setFundAddress",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "addr",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        }
+      ]
+    },
+    {
+      "function_name": "claimBalance",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "claimBuyback",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "claimToken",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(bnb)"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:24:11.896520"
+}
