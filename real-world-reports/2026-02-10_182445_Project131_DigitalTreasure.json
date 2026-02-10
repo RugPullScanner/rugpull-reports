@@ -1,0 +1,89 @@
+{
+  "project_id": "131",
+  "contract_name": "DigitalTreasure",
+  "contract_address": "0xe90c38cdb4f1591eb88d75541ca1c0bceb2cbfe8",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Admin fee and withdraw fee set to 100%",
+    "Excessive investment amount allowed for registration",
+    "Sell limit exceeded due to high fees"
+  ],
+  "attack_path_summary": "The function call sequence allows the new admin to set extremely high fees (100%) on both admin and withdrawal transactions, effectively draining all funds from any user transactions. Additionally, the registration and buyCoins functions were executed with excessive amounts, bypassing the intended limits, and the sellCoins function was executed with a large amount, resulting in a complete loss due to the high fees.",
+  "critical_functions_involved": [
+    "updateAdmin",
+    "updateFees",
+    "register",
+    "buyCoins",
+    "sellCoins"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "updateAdmin",
+      "caller": "0x0f72a1ebefbba5a50ce52c945962405ef1847564",
+      "parameters": [
+        {
+          "name": "_newAdmin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "updateFees",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_adminFee",
+          "type": "uint256",
+          "value": "100"
+        },
+        {
+          "name": "_withdrawFee",
+          "type": "uint256",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "function_name": "register",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_sponsor",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "buyCoins",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "sellCoins",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_coinAmount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:24:45.487514"
+}
