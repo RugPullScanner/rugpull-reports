@@ -1,0 +1,74 @@
+{
+  "project_id": "51",
+  "contract_name": "ELSA",
+  "contract_address": "0x675a38a652738f77e73ccc669f07439ffd4fca67",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The sequence involved transferring a large amount of tokens, approving them for spending, and attempting to transfer them from one account to another, potentially allowing unauthorized token movements.",
+  "critical_functions_involved": [
+    "transfer",
+    "approve",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x9efcbc98c7f4fb1209b50091ae5f20cfa8f479e2",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x9efcbc98c7f4fb1209b50091ae5f20cfa8f479e2"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x9efcbc98c7f4fb1209b50091ae5f20cfa8f479e2",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:25:17.797255"
+}
