@@ -1,0 +1,57 @@
+{
+  "project_id": "104",
+  "contract_name": "bsc1qi",
+  "contract_address": "0xc437a00e66584982db9fd3fd821cd26e39871949",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Leaking Token: Unauthorized transfer of tokens from any account to another",
+    "Limiting Sell Order: Restriction on token transfers from specific addresses"
+  ],
+  "attack_path_summary": "The sequence involved an approval followed by a transferFrom call, which attempted to transfer the entire balance from the owner to an external address. The transferFrom failed due to a low-level error, indicating potential restrictions or unauthorized token movements.",
+  "critical_functions_involved": [
+    "approve",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "approve",
+      "caller": "0xb60b03727d05a533086c05dbff5b422a09e297ba",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "199600000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0xb60b03727d05a533086c05dbff5b422a09e297ba"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "199600000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:02:31.383125"
+}
