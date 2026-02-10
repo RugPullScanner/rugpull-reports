@@ -1,0 +1,42 @@
+{
+  "project_id": "119",
+  "contract_name": "TOKEN",
+  "contract_address": "0xdc1372cfc087906ff309969d3c365a3856b88990",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external address",
+    "Implementation address set to an external address"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of ownership to an external address, which then set the implementation address to another external address. This enables the new owner to potentially deploy malicious code through the implementation contract, leading to unauthorized fund movements or other malicious actions.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "HZAEC"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x3ed0b97117623743371b41244ad91fd5b1600aee",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "HZAEC",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "__implementation",
+          "type": "address",
+          "value": "0x3ed0b97117623743371b41244ad91fd5b1600aee"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:14:59.947184"
+}
