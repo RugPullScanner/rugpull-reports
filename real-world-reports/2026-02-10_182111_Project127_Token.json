@@ -1,0 +1,66 @@
+{
+  "project_id": "127",
+  "contract_name": "Token",
+  "contract_address": "0xe2db0358b544d017e4541a96fbe38bae0c537b7d",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The contract allows for minting of tokens to any address without restriction.",
+    "Limiting Sell Order: Trading is initially disabled and can be enabled by a privileged user.",
+    "Leaking Token: The contract contains mechanisms that can restrict or allow transfers based on conditions that can be manipulated."
+  ],
+  "attack_path_summary": "The function call sequence enabled trading and allowed for large transfers, which could be exploited by the owner to mint tokens and transfer them, potentially draining liquidity pools.",
+  "critical_functions_involved": [
+    "enableTradingTest",
+    "transfer",
+    "transferFrom",
+    "_mint",
+    "_transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "enableTradingTest",
+      "caller": "0xb894d437f33e63db21787d8ac85b9be8454c7dd5",
+      "parameters": []
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0xb894d437f33e63db21787d8ac85b9be8454c7dd5",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0xb894d437f33e63db21787d8ac85b9be8454c7dd5"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:21:11.313218"
+}
