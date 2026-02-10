@@ -1,0 +1,49 @@
+{
+  "project_id": "45",
+  "contract_name": "S5NFTPOOL",
+  "contract_address": "0x5bb613956f329957ec95e8446bc7ec815a5813b5",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer allows unauthorized user to become owner",
+    "Subsequent setting of subHalfTime by unauthorized owner",
+    "Potential manipulation of reward distribution through claim"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized user to become the owner of the contract, enabling them to manipulate critical contract parameters such as subHalfTime and potentially exploit the reward distribution mechanism through the claim function.",
+  "critical_functions_involved": [
+    "transferShipOwner",
+    "setSubHalfTime",
+    "claim"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferShipOwner",
+      "caller": "0x891b4e4e2919989950738b344b9d53c3e659ad93",
+      "parameters": [
+        {
+          "name": "_address",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "setSubHalfTime",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_time",
+          "type": "uint256",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "function_name": "claim",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:22:12.562354"
+}
