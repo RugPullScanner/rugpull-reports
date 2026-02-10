@@ -1,0 +1,68 @@
+{
+  "project_id": "103",
+  "contract_name": "A55",
+  "contract_address": "0xc1b5e2d68f21fe8c0f39bf73b46d31851d6ded75",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens via claimStuckToken",
+    "Potential for owner to drain tokens using claimStuckToken"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to transfer any tokens from the contract to their own address using claimStuckToken, which can be used to drain the contract of its assets.",
+  "critical_functions_involved": [
+    "claimStuckToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x32A8343B07938171E4A51F93476960441C000a4C",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x970609ba2c160a1b491b90867681918bdc9773af"
+        }
+      ]
+    },
+    {
+      "function_name": "claimStuckToken",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0x55d398326f99059fF775485246999027B3197955"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "swapFee",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x970609ba2c160a1b491b90867681918bdc9773af"
+        }
+      ]
+    },
+    {
+      "function_name": "swapDelFee",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x970609ba2c160a1b491b90867681918bdc9773af"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:01:59.839844"
+}
