@@ -1,0 +1,65 @@
+{
+  "project_id": "19",
+  "contract_name": "NFTCollection",
+  "contract_address": "0x2fdc190a5879eba2c69343c316058fde6033d11d",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'NICE' function allows the owner to mint an arbitrary number of tokens to any address without restrictions.",
+    "Limiting Sell Order: The owner can set the mint price to zero, allowing them to mint tokens for free and potentially dump them on the market.",
+    "Leaking Token: The 'withdraw' function allows the owner to withdraw all funds from the contract, potentially leaving other users with worthless tokens."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to mint a large number of tokens to their own address for free, set the mint price to zero, and withdraw all funds from the contract, effectively executing a rug pull.",
+  "critical_functions_involved": [
+    "NICE",
+    "setMintPrice",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "NICE",
+      "caller": "0xcdfcf0869b2f5787ddd45a32ff493659e36a3177",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xcdfcf0869b2f5787ddd45a32ff493659e36a3177"
+        },
+        {
+          "name": "quantity",
+          "type": "uint256",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "function_name": "setMintPrice",
+      "caller": "0xcdfcf0869b2f5787ddd45a32ff493659e36a3177",
+      "parameters": [
+        {
+          "name": "newPrice",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "setMaxPerWallet",
+      "caller": "0xcdfcf0869b2f5787ddd45a32ff493659e36a3177",
+      "parameters": [
+        {
+          "name": "newMax",
+          "type": "uint256",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0xcdfcf0869b2f5787ddd45a32ff493659e36a3177",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:08:19.968588"
+}
