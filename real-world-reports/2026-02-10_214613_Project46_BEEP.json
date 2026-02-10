@@ -1,0 +1,57 @@
+{
+  "project_id": "46",
+  "contract_name": "BEEP",
+  "contract_address": "0x5b13ba1431683a385ab08cb54a4c80244abe2e91",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Leaking Token: Unauthorized transfer of tokens from any account to another",
+    "Limiting Sell Order: Potential restriction of token transfers"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to transfer a large amount of tokens from an external caller to another address without proper authorization, indicating a leaking token vulnerability. Additionally, the presence of a dex ratio setting suggests potential manipulation of sell orders.",
+  "critical_functions_involved": [
+    "transferFrom",
+    "_setDexRatio"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T21:46:13.983973"
+}
