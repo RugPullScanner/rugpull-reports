@@ -1,0 +1,36 @@
+{
+  "project_id": "29",
+  "contract_name": "GenesisETHZap_v4",
+  "contract_address": "0x46cfcb10d1fabf157a872f68aa7f2e61962795e2",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of stETH tokens from the contract",
+    "Unauthorized transfer of ETH from the contract"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to transfer stETH and ETH from the contract, which could be used to drain funds and execute a rug pull.",
+  "critical_functions_involved": [
+    "rescueToken",
+    "rescueETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "rescueToken",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueETH",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T21:33:09.282253"
+}
