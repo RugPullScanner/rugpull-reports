@@ -1,0 +1,57 @@
+{
+  "project_id": "108",
+  "contract_name": "bsclong",
+  "contract_address": "0xc836d31e690a1814b546907e0175a655e494af0a",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The function call sequence allowed the contract owner to transfer a large amount of tokens to an external address, and subsequent transferFrom failed due to insufficient allowance, indicating potential manipulation of token balances and restrictions on token transfers.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0xab795b1b6a5d4b8e7c9a0c34ffc8dd9899d98c64",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "10000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0xab795b1b6a5d4b8e7c9a0c34ffc8dd9899d98c64"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "10000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:05:46.870881"
+}
