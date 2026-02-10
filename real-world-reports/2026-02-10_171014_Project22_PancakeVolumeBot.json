@@ -1,0 +1,76 @@
+{
+  "project_id": "22",
+  "contract_name": "PancakeVolumeBot",
+  "contract_address": "0x33808250dd75f0006bc218b87451f00e3336cb8a",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external address",
+    "Execution of privileged functions by a new owner",
+    "Rescue of tokens and BNB by the new owner"
+  ],
+  "attack_path_summary": "The sequence involved transferring ownership to an external address, which then executed privileged functions like loopTrade and rescueToken, allowing the new owner to manipulate trades and extract tokens and BNB from the contract, consistent with rug pull behavior.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "loopTrade",
+    "rescueToken",
+    "rescueBNB"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xd1f1f5b1059bc738598fa7a68e62faa38a2d0585",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "loopTrade",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000"
+        },
+        {
+          "name": "times",
+          "type": "uint256",
+          "value": "20"
+        },
+        {
+          "name": "buyToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "baseToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueBNB",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:10:14.556626"
+}
