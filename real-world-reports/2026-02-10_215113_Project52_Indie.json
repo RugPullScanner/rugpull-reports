@@ -1,0 +1,47 @@
+{
+  "project_id": "52",
+  "contract_name": "Indie",
+  "contract_address": "0x6c5570ebf9e2a4c55d41a2392b2aabf4cf8efefe",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Limiting Sell Order: The contract restricts the number of sells per block to 3, potentially allowing the owner to manipulate the market.",
+    "Leaking Token: The owner can transfer a significant portion of tokens to the contract itself and then swap them for ETH, draining liquidity."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to open trading, transfer tokens to themselves or the contract, and then perform a manual swap to convert tokens to ETH, effectively draining liquidity and restricting other users' ability to sell.",
+  "critical_functions_involved": [
+    "openTrading_4x344534",
+    "transfer",
+    "manualSwap"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "openTrading_4x344534",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": 100000000000000000
+        }
+      ]
+    },
+    {
+      "function_name": "manualSwap",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T21:51:13.894760"
+}
