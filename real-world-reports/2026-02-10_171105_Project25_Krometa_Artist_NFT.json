@@ -1,0 +1,83 @@
+{
+  "project_id": "25",
+  "contract_name": "Krometa_Artist_NFT",
+  "contract_address": "0x3638669f281575798c6474bfc893227e41e33d51",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "Minter updated to an external address",
+    "Mint function called by the new minter",
+    "Withdraw function executed by the new owner"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external address to gain ownership and minter privileges, mint a token, and withdraw funds, indicating a potential rug pull.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "updateMinter",
+    "mint",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x099af9734d66e501d2d15633eb34548468c8b392",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "updateMinter",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_minter",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_name",
+          "type": "string",
+          "value": "TestCollection"
+        },
+        {
+          "name": "_quantity",
+          "type": "uint256",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_contract",
+          "type": "address",
+          "value": "0x55d398326f99059fF775485246999027B3197955"
+        },
+        {
+          "name": "_user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:11:05.782927"
+}
