@@ -1,0 +1,85 @@
+{
+  "project_id": "7",
+  "contract_name": "Token",
+  "contract_address": "0x0fed6dd2db71f7d55435eae86b41d615c15d3d1a",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "transfer function failed due to SafeMath subtraction overflow",
+    "transferFrom function failed due to SafeMath subtraction overflow",
+    "rescueEther function failed with low-level error"
+  ],
+  "attack_path_summary": "The function call sequence suggests potential manipulation of token balances and unauthorized access to contract funds. The failed transfer and transferFrom calls indicate possible attempts to drain tokens, while the failed rescueEther call suggests an attempt to extract ETH from the contract.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom",
+    "rescueEther"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "enableTrading",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": []
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "sender",
+          "type": "address",
+          "value": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba"
+        },
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "updateBot",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": [
+        {
+          "name": "_bot",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "flag",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "rescueEther",
+      "caller": "0xaa44b4e83b2f8776e832fd8a4e0d04d15e97acba",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:02:09.065341"
+}
