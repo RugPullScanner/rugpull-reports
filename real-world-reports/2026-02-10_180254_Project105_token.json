@@ -1,0 +1,74 @@
+{
+  "project_id": "105",
+  "contract_name": "token",
+  "contract_address": "0xc59dba03e020ca2303978d85af497ac761cb80a4",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The function call sequence involved transferring a large amount of tokens from an owner address to an external address and then approving a large transfer from another external address. The transferFrom function failed due to insufficient balance, indicating potential manipulation of balances or unauthorized transfers.",
+  "critical_functions_involved": [
+    "transfer",
+    "approve",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x58f73b45e5ed31c894b018de9b26cfaa28bb8bf1",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x58f73b45e5ed31c894b018de9b26cfaa28bb8bf1"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x58f73b45e5ed31c894b018de9b26cfaa28bb8bf1",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "500000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:02:54.655928"
+}
