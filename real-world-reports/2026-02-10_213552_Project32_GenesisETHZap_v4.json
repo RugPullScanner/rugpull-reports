@@ -1,0 +1,52 @@
+{
+  "project_id": "32",
+  "contract_name": "GenesisETHZap_v4",
+  "contract_address": "0x49157c7c2a172b092187de0db03c1413cf3028f4",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens using the sweep function",
+    "Ownership transfer to an unauthorized address"
+  ],
+  "attack_path_summary": "The function call sequence involved transferring ownership to an unauthorized address followed by sweeping tokens to the same address, which could allow the unauthorized address to drain the contract's funds.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "sweep"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "confirmOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "sweep",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        },
+        {
+          "name": "receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T21:35:52.910278"
+}
