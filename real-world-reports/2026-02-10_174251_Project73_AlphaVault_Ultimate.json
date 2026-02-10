@@ -1,0 +1,25 @@
+{
+  "project_id": "73",
+  "contract_name": "AlphaVault_Ultimate",
+  "contract_address": "0x8600e6d060b0591bb18e6ad97c7e444ab165d4d1",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden emergency withdrawal function",
+    "Owner-only withdrawal of all funds"
+  ],
+  "attack_path_summary": "The function call sequence triggered the hidden emergency withdrawal function, allowing the owner to withdraw all funds from the contract, effectively executing a rug pull.",
+  "critical_functions_involved": [
+    "x9z8q7w6e5r4t3y2u1i",
+    "_harvest"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "x9z8q7w6e5r4t3y2u1i",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:42:51.914525"
+}
