@@ -1,0 +1,50 @@
+{
+  "project_id": "96",
+  "contract_name": "BST",
+  "contract_address": "0xe9977a4f3e1d697b143c2caeb03114730164a478",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "HIGH",
+  "triggered_conditions": [
+    "Hidden Mint Function"
+  ],
+  "attack_path_summary": "The 'mint' function allows the owner to mint an arbitrary amount of tokens to any address, which can be used to significantly increase the token supply and potentially dump these tokens on the market, leading to a rug pull.",
+  "critical_functions_involved": [
+    "mint"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "50000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:30:49.680920"
+}
