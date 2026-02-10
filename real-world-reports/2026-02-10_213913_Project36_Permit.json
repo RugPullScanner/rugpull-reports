@@ -1,0 +1,83 @@
+{
+  "project_id": "36",
+  "contract_name": "Permit",
+  "contract_address": "0x4f5019f57e500fd8d8abd9ae7999fdc6d559bb86",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account",
+    "Ownership transfer enabling malicious control"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of ownership to an external address, which then executed unauthorized token deductions from other accounts, indicative of a rug pull.",
+  "critical_functions_involved": [
+    "transferOwnerShip",
+    "deductToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnerShip",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "new_owner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "deductToken",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(contract_self)"
+        },
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    },
+    {
+      "function_name": "deductToken",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(contract_self)"
+        },
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T21:39:13.094190"
+}
