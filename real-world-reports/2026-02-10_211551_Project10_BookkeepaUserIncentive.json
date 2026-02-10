@@ -1,0 +1,40 @@
+{
+  "project_id": "10",
+  "contract_name": "BookkeepaUserIncentive",
+  "contract_address": "0x1a48b8ba4f8efb18b6eebc8b91ee551abe7956f7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized token withdrawal by owner",
+    "Potential for owner to drain contract funds"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to withdraw a significant amount of tokens from the contract, which could be used to execute a rug pull by depleting the contract's token balance.",
+  "critical_functions_involved": [
+    "withdrawTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "withdrawTokens",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "tokenAddress",
+          "type": "address",
+          "value": "address(bookkeepauserincentive)"
+        },
+        {
+          "name": "wallet",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "tokens",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T21:15:51.827797"
+}
