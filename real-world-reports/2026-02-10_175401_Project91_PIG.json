@@ -1,0 +1,57 @@
+{
+  "project_id": "91",
+  "contract_name": "PIG",
+  "contract_address": "0xadf96db1a06123120dfc7b319aec83cce5243bc0",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The function call sequence allows unauthorized transfer of tokens from any account to another, potentially enabling the contract owner to move user funds into a private wallet.",
+  "critical_functions_involved": [
+    "_transfer",
+    "_update"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "approve",
+      "caller": "0x2e83df462fa8735a6d750899de2b20f944e4457f",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x2e83df462fa8735a6d750899de2b20f944e4457f"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "5000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:54:01.788555"
+}
