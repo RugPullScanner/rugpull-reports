@@ -1,0 +1,67 @@
+{
+  "project_id": "174",
+  "contract_name": "TOKEN",
+  "contract_address": "0x8b1d897ae48a0f6ee118eae829f2c1c8d48e44b7",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens via transferFrom",
+    "Potential leaking of tokens from any account"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized transfer of a large amount of tokens from one account to another, which could be used to drain user funds.",
+  "critical_functions_involved": [
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x2fbe92f9d53042ef9cff772f1dfcbbfc46454f14"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x2fbe92f9d53042ef9cff772f1dfcbbfc46454f14",
+      "parameters": [
+        {
+          "name": "jhwauhlzsender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "nxegbylqrecipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "rnumaosaamount",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T11:41:26.163712"
+}
