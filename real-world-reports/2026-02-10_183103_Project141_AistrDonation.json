@@ -1,0 +1,86 @@
+{
+  "project_id": "141",
+  "contract_name": "AistrDonation",
+  "contract_address": "0xfb2b7e25f283c006d38601bdd298ed7c30d7ed98",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "setAistrPlan was called with zero duration and zero totalRewardBps, effectively disabling the plan.",
+    "donateAistr was called with a disabled plan, potentially allowing funds to be locked or mismanaged.",
+    "setTreasury was called to change the treasury address, which could redirect funds."
+  ],
+  "attack_path_summary": "The sequence involves disabling a donation plan and redirecting the treasury address, which could be used to lock user funds and redirect them to a malicious address.",
+  "critical_functions_involved": [
+    "setTreasury",
+    "setAistrPlan",
+    "donateAistr"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setTreasury",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "t",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "setAistrPlan",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "planId",
+          "type": "uint8",
+          "value": "0"
+        },
+        {
+          "name": "duration",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "totalRewardBps",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "donateAistr",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "typeId",
+          "type": "uint8",
+          "value": "1"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "claim",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "kind",
+          "type": "uint8",
+          "value": "0"
+        },
+        {
+          "name": "donationId",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:31:03.445393"
+}
