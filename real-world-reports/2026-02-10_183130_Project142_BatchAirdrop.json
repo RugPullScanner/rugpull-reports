@@ -1,0 +1,69 @@
+{
+  "project_id": "142",
+  "contract_name": "BatchAirdrop",
+  "contract_address": "0xfb4aaaae72bd6530875a1be00564f46fece1e5bd",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external caller",
+    "Execution of rescueToken and rescueNative by the new owner"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of ownership to an external caller, who then executed rescueToken and rescueNative to drain the contract's assets.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "rescueToken",
+    "rescueNative"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueNative",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:31:30.577078"
+}
