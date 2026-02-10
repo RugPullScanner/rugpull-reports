@@ -1,0 +1,47 @@
+{
+  "project_id": "64",
+  "contract_name": "Staking",
+  "contract_address": "0x70c1c51ff190038e4392f1a1159fb2697a7435fb",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The owner executed emergencyWithdrawTFB to transfer a significant amount of tokens to an external address.",
+    "The owner transferred ownership to another address, potentially to obfuscate control or responsibility."
+  ],
+  "attack_path_summary": "The function call sequence involved the owner withdrawing a large amount of tokens from the contract and transferring ownership, which are actions consistent with a rug pull strategy.",
+  "critical_functions_involved": [
+    "emergencyWithdrawTFB",
+    "transferOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyWithdrawTFB",
+      "caller": "0x91d21a2e0379cae73951cda55bcea326c4cab3f5",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x91d21a2e0379cae73951cda55bcea326c4cab3f5",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:35:42.156822"
+}
