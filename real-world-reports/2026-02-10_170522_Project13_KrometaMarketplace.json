@@ -1,0 +1,80 @@
+{
+  "project_id": "13",
+  "contract_name": "KrometaMarketplace",
+  "contract_address": "0x1fa9d992472527ab66316293aad811e5fa010144",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can set commission rates to 100%, effectively draining all funds from sales and auctions.",
+    "Owner can withdraw all funds from the contract at any time."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set commission rates to 100%, ensuring all funds from sales and auctions are directed to the owner. Subsequently, the owner can withdraw all funds from the contract, executing a rug pull.",
+  "critical_functions_involved": [
+    "updateCommission",
+    "updateNativeCommission",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "updateCommission",
+      "caller": "0x099af9734d66e501d2d15633eb34548468c8b392",
+      "parameters": [
+        {
+          "name": "_commissionRate",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "updateNativeCommission",
+      "caller": "0x099af9734d66e501d2d15633eb34548468c8b392",
+      "parameters": [
+        {
+          "name": "_nativecommision",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "sell",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_tokenId",
+          "type": "uint256",
+          "value": "1"
+        },
+        {
+          "name": "_price",
+          "type": "uint256",
+          "value": "100"
+        },
+        {
+          "name": "_payment",
+          "type": "address",
+          "value": "address(krometamarketplace)"
+        }
+      ]
+    },
+    {
+      "function_name": "nativeBuy",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_tokenId",
+          "type": "uint256",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x099af9734d66e501d2d15633eb34548468c8b392",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:05:22.045883"
+}
