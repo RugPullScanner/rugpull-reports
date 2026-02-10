@@ -1,0 +1,81 @@
+{
+  "project_id": "112",
+  "contract_name": "AistrDonation",
+  "contract_address": "0xd272d1179f7d518d77936de438ac92070c42db42",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'mint' function was called by an unauthorized address, indicating potential misuse.",
+    "Limiting Sell Order: The 'setAccountFrozen' function was used to freeze an account, potentially preventing token sales.",
+    "Leaking Token: The 'setMinter' function was used to alter minter permissions, which could allow unauthorized minting."
+  ],
+  "attack_path_summary": "The function call sequence involved freezing an account, unauthorized minting of tokens, and altering minter permissions, which together could facilitate a rug pull by allowing the malicious actor to mint and transfer tokens without restriction and prevent others from selling.",
+  "critical_functions_involved": [
+    "mint",
+    "setAccountFrozen",
+    "setMinter"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFrozen",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "setAccountFrozen",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setMinter",
+      "caller": "0xb0878aba354782314115017c1256b88fbd020f75",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "allowed",
+          "type": "bool",
+          "value": false
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:08:48.903815"
+}
