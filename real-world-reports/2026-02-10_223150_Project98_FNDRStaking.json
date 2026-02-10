@@ -1,0 +1,92 @@
+{
+  "project_id": "98",
+  "contract_name": "FNDRStaking",
+  "contract_address": "0xea0b30be60f000f351596f836829fc5e3b60566d",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner withdrew a large amount of USDT without restrictions",
+    "FNDR price set to zero, potentially affecting interest calculations",
+    "Distribution started with insufficient checks on eligible stakers"
+  ],
+  "attack_path_summary": "The sequence involved the owner withdrawing a significant amount of USDT, setting FNDR price to zero, and initiating a distribution without proper eligibility checks, potentially allowing manipulation of interest calculations and fund allocations.",
+  "critical_functions_involved": [
+    "adminWithdraw",
+    "updateFNDRPrice",
+    "startDistribution"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "adminWithdraw",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "tokenAddr",
+          "type": "address",
+          "value": "address(usdtToken)"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        }
+      ]
+    },
+    {
+      "function_name": "updateFNDRPrice",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newPrice",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "stake",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000"
+        },
+        {
+          "name": "plan",
+          "type": "uint256",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "function_name": "startDistribution",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "totalAmount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "claimFromDistribution",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "distributionId",
+          "type": "uint256",
+          "value": "2"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:31:50.112784"
+}
