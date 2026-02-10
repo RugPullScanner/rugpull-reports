@@ -1,0 +1,73 @@
+{
+  "project_id": "61",
+  "contract_name": "GOLEM",
+  "contract_address": "0x6f720859247d359262d49d985e605858df99a643",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order"
+  ],
+  "attack_path_summary": "The function call sequence involves setting a dex ratio and transferring tokens, which could be used to manipulate token transfers and restrict selling, potentially leading to a rug pull.",
+  "critical_functions_involved": [
+    "_setDexRatio",
+    "_transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0xa5ad6fe235b13b9d7bc52f8946e11f677f687432",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "500000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0xa5ad6fe235b13b9d7bc52f8946e11f677f687432"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "500000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "_setDexRatio",
+      "caller": "0xa5ad6fe235b13b9d7bc52f8946e11f677f687432",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "ratio",
+          "type": "uint256",
+          "value": "100"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:34:14.865953"
+}
