@@ -1,0 +1,102 @@
+{
+  "project_id": "86",
+  "contract_name": "BuyBackBurnProvider",
+  "contract_address": "0xc86fad80d81c72bd74253f0e6800da93b881a7c9",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized token withdrawal by privileged address",
+    "Potential for owner to drain funds through withdrawToken function"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to withdraw tokens from the contract using the withdrawToken function, which can be used to drain funds from the contract, leading to a rug pull scenario.",
+  "critical_functions_involved": [
+    "withdrawToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "addSchedule",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_fromToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_toToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "_totalFromTokenAmount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "_buybackTimes",
+          "type": "uint256",
+          "value": "1"
+        },
+        {
+          "name": "_buybackInterval",
+          "type": "uint256",
+          "value": "60"
+        },
+        {
+          "name": "_isOnchain",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "name": "_aggregator",
+          "type": "bytes32",
+          "value": "0x123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+        }
+      ]
+    },
+    {
+      "function_name": "updateScheduleStatus",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_scheduleIndex",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_isActive",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:21:15.942836"
+}
