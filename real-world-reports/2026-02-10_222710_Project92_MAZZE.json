@@ -1,0 +1,57 @@
+{
+  "project_id": "92",
+  "contract_name": "MAZZE",
+  "contract_address": "0xdf1b397c688ea09c707a545dbc419c10bb596ce3",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Leaking Token: Unauthorized transfer of tokens from any account to another.",
+    "Hidden Mint Function: Arbitrary increase or change of token balances."
+  ],
+  "attack_path_summary": "The function call sequence allowed unauthorized transfer of tokens and arbitrary changes to token balances, enabling potential extraction of assets from liquidity pools.",
+  "critical_functions_involved": [
+    "transfer",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000004"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000004"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "500000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:27:10.935338"
+}
