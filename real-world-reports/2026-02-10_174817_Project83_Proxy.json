@@ -1,0 +1,42 @@
+{
+  "project_id": "83",
+  "contract_name": "Proxy",
+  "contract_address": "0x96ec7f73fb6b80230af265237ab8e3a066ab386a",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized caller attempted to set implementation",
+    "Unauthorized caller attempted to transfer ownership"
+  ],
+  "attack_path_summary": "The function call sequence involved an unauthorized caller setting the implementation address and attempting to transfer ownership, which could lead to control being taken over by a malicious actor.",
+  "critical_functions_involved": [
+    "setImplementation",
+    "transferOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setImplementation",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "__implementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0xa4d9b10b093583e96a8798da622e80bb59045eff"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:48:17.795317"
+}
