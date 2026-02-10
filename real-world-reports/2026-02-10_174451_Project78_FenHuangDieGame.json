@@ -1,0 +1,36 @@
+{
+  "project_id": "78",
+  "contract_name": "FenHuangDieGame",
+  "contract_address": "0x8e4d3510bc24032e085840c3984a104dbd04798c",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The 'emergencyWithdrawToken' function allows the owner to withdraw any token from the contract, including user-deposited tokens.",
+    "The 'emergencyWithdrawBNB' function allows the owner to withdraw all BNB from the contract."
+  ],
+  "attack_path_summary": "The function call sequence allows the contract owner to withdraw all user-deposited tokens and BNB from the contract, effectively draining the contract of its assets.",
+  "critical_functions_involved": [
+    "emergencyWithdrawToken",
+    "emergencyWithdrawBNB"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyWithdrawToken",
+      "caller": "owner",
+      "parameters": [
+        {
+          "name": "tokenAddr",
+          "type": "address",
+          "value": "0x577824F1870d246D711CBA1290EC787BbB5D7777"
+        }
+      ]
+    },
+    {
+      "function_name": "emergencyWithdrawBNB",
+      "caller": "owner",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:44:51.577401"
+}
