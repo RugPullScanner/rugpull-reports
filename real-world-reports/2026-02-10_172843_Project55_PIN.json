@@ -1,0 +1,36 @@
+{
+  "project_id": "55",
+  "contract_name": "PIN",
+  "contract_address": "0x6b449d9316939541decb3003804cf8d293df060f",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Limiting Sell Order: The contract restricts the address 0xf4c21a1cB819E5F7ABe6dEFde3d118D8F3D61FA7 from receiving tokens.",
+    "Hidden Mint Function: The contract allows arbitrary setting of dex ratios which can manipulate token transfers."
+  ],
+  "attack_path_summary": "The function call sequence triggered a rug pull by transferring a large amount of tokens to an address that is restricted from receiving tokens, indicating a limiting sell order. Additionally, the dex ratio setting allows manipulation of token transfers, potentially enabling unauthorized minting or movement of tokens.",
+  "critical_functions_involved": [
+    "transfer",
+    "_setDexRatio"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x9c2c857f79574818bc316c0264b534dcb9dbee32",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xf4c21a1cB819E5F7ABe6dEFde3d118D8F3D61FA7"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:28:43.774283"
+}
