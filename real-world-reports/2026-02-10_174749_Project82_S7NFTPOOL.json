@@ -1,0 +1,49 @@
+{
+  "project_id": "82",
+  "contract_name": "S7NFTPOOL",
+  "contract_address": "0x962d4de28f645aac37a368c085092b3d21d4c631",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner transferred ownership to an external caller",
+    "SubHalfTime set to zero, potentially affecting reward calculations",
+    "Claim function executed by new owner, potentially extracting rewards"
+  ],
+  "attack_path_summary": "The function call sequence allowed the original owner to transfer ownership to an external caller, who then set the subHalfTime to zero, potentially disrupting reward calculations. The new owner then executed the claim function, which could extract rewards from the contract.",
+  "critical_functions_involved": [
+    "transferShipOwner",
+    "setSubHalfTime",
+    "claim"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferShipOwner",
+      "caller": "0x891b4e4e2919989950738b344b9d53c3e659ad93",
+      "parameters": [
+        {
+          "name": "_address",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setSubHalfTime",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_time",
+          "type": "uint",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "claim",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:47:49.156980"
+}
