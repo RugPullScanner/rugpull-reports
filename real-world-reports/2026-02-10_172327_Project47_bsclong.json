@@ -1,0 +1,57 @@
+{
+  "project_id": "47",
+  "contract_name": "bsclong",
+  "contract_address": "0x64c948905b7033ec82f816c2970a48ccd7a6fc65",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account",
+    "Hidden mechanism for arbitrary token balance changes"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external caller to transfer a large amount of tokens from the owner's account to another address, indicating a potential rug pull mechanism through unauthorized token movement.",
+  "critical_functions_involved": [
+    "approve",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "approve",
+      "caller": "0x1f3d7197f5e680f72413e8d31640e83b9c39606f",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "137000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x1f3d7197f5e680f72413e8d31640e83b9c39606f"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "137000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:23:27.910964"
+}
