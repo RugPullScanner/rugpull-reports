@@ -1,0 +1,62 @@
+{
+  "project_id": "76",
+  "contract_name": "FixedTermYield",
+  "contract_address": "0x8b6e9f42a1927c7c471066b6542951d80d551c94",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized reserve withdrawal by non-fee withdrawer",
+    "Potential leaking of tokens through setAllowance and withdrawReserve functions"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized address to withdraw reserve funds, indicating a potential rug pull scenario where tokens could be drained from the contract.",
+  "critical_functions_involved": [
+    "setAllowance",
+    "withdrawReserve"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setAllowance",
+      "caller": "0xbf381e1cbfdb0d02f3800010e490130d3dc73118",
+      "parameters": [
+        {
+          "name": "tokens",
+          "type": "TokenAmountUint[]",
+          "value": [
+            {
+              "token": "address(fixedtermyield)",
+              "amount": 1000000
+            }
+          ]
+        },
+        {
+          "name": "pool",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawReserve",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "underlying",
+          "type": "address",
+          "value": "address(fixedtermyield)"
+        },
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": 1000000
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:44:05.995986"
+}
