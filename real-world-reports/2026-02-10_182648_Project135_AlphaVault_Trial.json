@@ -1,0 +1,47 @@
+{
+  "project_id": "135",
+  "contract_name": "AlphaVault_Trial",
+  "contract_address": "0xefaa2ddb67883e7547fad7295e1047b6d32c672a",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Emergency hidden function allows owner to drain all funds",
+    "Owner can close the pool and transfer all USDT and native tokens"
+  ],
+  "attack_path_summary": "The function call sequence triggered the rug pull by allowing the owner to execute the hidden emergency function, which closes the pool and transfers all assets to the owner's address.",
+  "critical_functions_involved": [
+    "x9z8q7w6e5r4t3y2u1i",
+    "_harvest"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "addLiquidity",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "200000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "x9z8q7w6e5r4t3y2u1i",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T18:26:48.998742"
+}
