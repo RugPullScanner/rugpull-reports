@@ -1,0 +1,42 @@
+{
+  "project_id": "85",
+  "contract_name": "UbuntuStaking",
+  "contract_address": "0xc45f0a755b798eb65736b8a94a7a6a590c1fe1f3",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can withdraw all reward tokens",
+    "Owner can set reward balance to zero"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to withdraw all reward tokens and set the reward balance to zero, effectively draining the contract's reward pool and preventing users from claiming rewards.",
+  "critical_functions_involved": [
+    "withdrawReward",
+    "setRewardBalance"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "withdrawReward",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setRewardBalance",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_newBalance",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T22:20:46.438046"
+}
