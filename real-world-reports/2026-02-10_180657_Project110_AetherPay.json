@@ -1,0 +1,82 @@
+{
+  "project_id": "110",
+  "contract_name": "AetherPay",
+  "contract_address": "0xd05e3b06ed8ffffc7c3405028752ae476644d4c0",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized access to emergency withdrawal functions",
+    "Transfer of ownership to an external caller",
+    "Update of fee receiver to an external caller"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized external caller to execute emergency withdrawals, transfer contract ownership, and update the fee receiver, which could facilitate a rug pull by enabling the draining of funds and redirecting fees.",
+  "critical_functions_involved": [
+    "emergencyCoinWithdraw",
+    "emergencyTokenWithdraw",
+    "transferOwner",
+    "updateFeeReceiver"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyCoinWithdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "emergencyTokenWithdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(aetherpay)"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwner",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0xd27a4e3a8f58c1fd832e9946a08c20e9139aee9e"
+        }
+      ]
+    },
+    {
+      "function_name": "updateFeeReceiver",
+      "caller": "0xd27a4e3a8f58c1fd832e9946a08c20e9139aee9e",
+      "parameters": [
+        {
+          "name": "newFeeReceiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "releaseToken",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "orderId",
+          "type": "string",
+          "value": "order123"
+        },
+        {
+          "name": "buyer",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "releaseAmount",
+          "type": "uint256",
+          "value": 1000
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T18:06:57.736265"
+}
