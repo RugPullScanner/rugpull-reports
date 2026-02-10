@@ -1,0 +1,46 @@
+{
+  "project_id": "37",
+  "contract_name": "ViewOnly",
+  "contract_address": "0x484025e2dcce4d5cf670b7f299a648ee62bb083c",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized fund transfer via transfer function",
+    "Admin-only access control based on hardcoded hash"
+  ],
+  "attack_path_summary": "The transfer function allows the admin to transfer any amount of Ether from the contract to any address without restrictions, enabling a potential rug pull.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0xc7101520843e46c1667ed187e617d0aa27365886",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "0x"
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            2000000000000000000
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:17:21.406238"
+}
