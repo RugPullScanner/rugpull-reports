@@ -1,0 +1,73 @@
+{
+  "project_id": "14",
+  "contract_name": "ELIZATOWN",
+  "contract_address": "0x22d4014909bd82de3bb1dda164243bbb631dfc8e",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The function call sequence involved a transfer and transferFrom operation that failed due to insufficient allowance, but the presence of a hidden mint function and unauthorized token transfer capabilities indicate potential for a rug pull.",
+  "critical_functions_involved": [
+    "_mint",
+    "_transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "approve",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T21:19:25.535828"
+}
