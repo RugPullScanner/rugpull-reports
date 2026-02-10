@@ -1,0 +1,68 @@
+{
+  "project_id": "36",
+  "contract_name": "AlphaVault_Hybrid_6",
+  "contract_address": "0x4624d02a597bcd9c6bd5ae58cb8f2f770de45247",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can withdraw all USDT and BNB from the contract",
+    "Fallback function allows owner to close the pool and drain funds"
+  ],
+  "attack_path_summary": "The fallback function, when called by the owner, closes the pool and transfers all USDT and BNB to the owner, effectively draining all funds from the contract.",
+  "critical_functions_involved": [
+    "fallback"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "addLiquidity",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "addLiquidity",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000"
+        }
+      ]
+    },
+    {
+      "function_name": "fallback",
+      "caller": "0x970609ba2c160a1b491b90867681918bdc9773af",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T17:17:07.155624"
+}
