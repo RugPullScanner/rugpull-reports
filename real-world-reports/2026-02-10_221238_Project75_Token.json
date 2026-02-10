@@ -1,0 +1,41 @@
+{
+  "project_id": "75",
+  "contract_name": "Token",
+  "contract_address": "0xac354804fcb205e31f5281c34f27915ee026e1b0",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership renounced after transferring a large amount of tokens to a dead address",
+    "Potential for complete loss of control and inability to recover or manage the contract"
+  ],
+  "attack_path_summary": "The function call sequence involved transferring a large amount of tokens to a dead address followed by renouncing ownership, which can lead to a situation where the contract is left unmanaged and tokens are irrecoverable, effectively executing a rug pull.",
+  "critical_functions_involved": [
+    "transfer",
+    "renounceOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0xdead"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "renounceOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-10T22:12:38.710760"
+}
