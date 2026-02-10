@@ -1,0 +1,67 @@
+{
+  "project_id": "77",
+  "contract_name": "AgDonationVault",
+  "contract_address": "0x8b8d0a067c99093d6fb18ed38aa49f2fa7cf8731",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external caller",
+    "Withdrawal of all funds by the new owner",
+    "Disabling of donation functionalities"
+  ],
+  "attack_path_summary": "The function call sequence allowed the original owner to transfer ownership to an external caller, who then withdrew all funds from the contract and disabled further donations, effectively executing a rug pull.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawAll",
+    "setBnbDonationsEnabled",
+    "setTokenDonationsEnabled"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawAll",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setBnbDonationsEnabled",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "function_name": "setTokenDonationsEnabled",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "value": "false"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-10T17:44:32.271934"
+}
