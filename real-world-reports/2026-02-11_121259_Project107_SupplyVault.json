@@ -1,0 +1,28 @@
+{
+  "project_id": "107",
+  "contract_name": "SupplyVault",
+  "contract_address": "0xe8865e14d7665265affcfa59e9f33f03814550b9",
+  "iteration": 8,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Emergency withdrawal by privileged account"
+  ],
+  "attack_path_summary": "The function call sequence allowed a privileged account to perform an emergency withdrawal, draining funds from the contract.",
+  "critical_functions_involved": [
+    "emergencyWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyWithdraw",
+      "caller": "0xaeb682485268d4e0a0de12c8e879c2f137d13774",
+      "parameters": []
+    },
+    {
+      "function_name": "getTotalSupply",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T12:12:59.560682"
+}
