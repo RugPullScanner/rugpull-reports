@@ -1,0 +1,67 @@
+{
+  "project_id": "94",
+  "contract_name": "ArbitrageFlashLoanV2",
+  "contract_address": "0xc3f43258aa3989af1d61e8a7579187b57467eea4",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external caller",
+    "Unauthorized withdrawal of tokens by the new owner",
+    "Unauthorized withdrawal of all tokens by the new owner",
+    "Unauthorized withdrawal of ETH by the new owner"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of contract ownership to an external address, which then performed unauthorized withdrawals of tokens and ETH, effectively draining the contract's assets.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawToken",
+    "withdrawAllToken",
+    "withdrawETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x4365f8e70cf38c6ca67de41448508f2da8825500",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawAllToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawETH",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T12:03:23.972334"
+}
