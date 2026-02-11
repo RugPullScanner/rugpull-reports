@@ -1,0 +1,92 @@
+{
+  "project_id": "60",
+  "contract_name": "ZBCNFT",
+  "contract_address": "0x8b0696243cdbd504b8818aacb21ddb47a1d4291b",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized minting by non-IDO address",
+    "Transfer of NFT to admin address without restrictions"
+  ],
+  "attack_path_summary": "The sequence allowed an external caller to set themselves as admin and IDO, mint NFTs, and transfer them to their own address, potentially enabling unauthorized control and distribution of NFTs.",
+  "critical_functions_involved": [
+    "setAdmin",
+    "setIDO",
+    "mint",
+    "transferFrom"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setAdmin",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "admin_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "setNFTPool",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "nftPool_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "setIDO",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "ido_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "value": "5"
+        }
+      ]
+    },
+    {
+      "function_name": "transferFrom",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "value": "5"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T11:35:14.077198"
+}
