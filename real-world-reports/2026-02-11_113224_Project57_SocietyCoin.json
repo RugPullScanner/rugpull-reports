@@ -1,0 +1,40 @@
+{
+  "project_id": "57",
+  "contract_name": "SocietyCoin",
+  "contract_address": "0x86bf9b59a86036698d4405eb45f47c29f2ad3ade",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Renounce ownership after transferring all tokens to an external address"
+  ],
+  "attack_path_summary": "The owner transferred all tokens to an external address and then renounced ownership, leaving no control over the contract and no ability to recover or manage the token supply.",
+  "critical_functions_involved": [
+    "transfer",
+    "renounceOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x1ab530977b16217a137c2e9fd3ab6828af2810dd",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "renounceOwnership",
+      "caller": "0x1ab530977b16217a137c2e9fd3ab6828af2810dd",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T11:32:24.763404"
+}
