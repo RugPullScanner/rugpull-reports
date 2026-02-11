@@ -1,0 +1,94 @@
+{
+  "project_id": "31",
+  "contract_name": "ExchangeUtilityToToken",
+  "contract_address": "0x479576d3227ad1cbd4b28e36d18d6207b054ce6c",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unlimited transfer fee set to 100%",
+    "Authorized address can set accepted tokens and execute swaps",
+    "Owner can withdraw any token from the contract"
+  ],
+  "attack_path_summary": "The sequence involves setting the transfer fee to 100%, authorizing an address to accept a token and execute a swap, and then withdrawing the swapped tokens, effectively draining the contract.",
+  "critical_functions_involved": [
+    "setTransferFee",
+    "addAuthorized",
+    "setAcceptedToken",
+    "swap",
+    "withdrawToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setTransferFee",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "newFee",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "addAuthorized",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "_account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "setAcceptedToken",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "accepted",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "swap",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "outputToken",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "utilityTokenAmount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T11:14:39.462769"
+}
