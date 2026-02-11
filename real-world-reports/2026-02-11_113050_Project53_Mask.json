@@ -1,0 +1,81 @@
+{
+  "project_id": "53",
+  "contract_name": "Mask",
+  "contract_address": "0x7a2f3654d856221b5d004f3799c0ccc58ee0ad73",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'mint' function allows for arbitrary minting of tokens by accounts with 'God Mode'.",
+    "Limiting Sell Order: The 'setGodMode' function can exempt specific accounts from transaction fees, potentially allowing for unrestricted selling.",
+    "Leaking Token: The 'setGodMode' function can enable unauthorized transfer of tokens by exempting accounts from fees and restrictions."
+  ],
+  "attack_path_summary": "The function call sequence enabled the owner to set 'God Mode' for their account, mint a large number of tokens to themselves, and adjust transaction fees to zero, allowing for potential unrestricted selling and extraction of value.",
+  "critical_functions_involved": [
+    "setGodMode",
+    "mint",
+    "adjustDevBonusFee"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setGodMode",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "status",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "13000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "adjustDevBonusFee",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "_newFee",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T11:30:50.859397"
+}
