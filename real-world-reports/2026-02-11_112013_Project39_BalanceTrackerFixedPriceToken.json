@@ -1,0 +1,36 @@
+{
+  "project_id": "39",
+  "contract_name": "BalanceTrackerFixedPriceToken",
+  "contract_address": "0x5c50ebc17d002a4484585c8fbf62f51953493c0b",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The 'drain' function allows the owner to transfer all collected fees to a drainer address without restriction.",
+    "The 'drain' function can be called by the owner, allowing them to extract funds from the contract."
+  ],
+  "attack_path_summary": "The function call sequence involved the owner depositing a significant amount of tokens and then immediately calling the 'drain' function to transfer all collected fees to a drainer address. This sequence allows the owner to extract funds from the contract, which is consistent with rug pull behavior.",
+  "critical_functions_involved": [
+    "deposit",
+    "drain"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "deposit",
+      "caller": "0xeb2a22b27c7ad5eee424fd90b376c745e60f914e",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "drain",
+      "caller": "0xeb2a22b27c7ad5eee424fd90b376c745e60f914e",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T11:20:13.702666"
+}
