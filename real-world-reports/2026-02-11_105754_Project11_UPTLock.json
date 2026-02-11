@@ -1,0 +1,77 @@
+{
+  "project_id": "11",
+  "contract_name": "UPTLock",
+  "contract_address": "0x1534cb9d88478760670b0b687063a5ddc54f5bba",
+  "iteration": 8,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "ForceTransferVesting executed by non-owner"
+  ],
+  "attack_path_summary": "The sequence allowed an external address to become the owner and execute forceTransferVesting, moving locked and claimed tokens back to the original owner, potentially draining user funds.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "forceTransferVesting"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x8c39cecf337a27a45c2309623fbb87f53e3da9a1",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "direct",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "name": "renounce",
+          "type": "bool",
+          "value": false
+        }
+      ]
+    },
+    {
+      "function_name": "lock",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "recipients",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[]",
+          "value": [
+            1000000
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "forceTransferVesting",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x8c39cecf337a27a45c2309623fbb87f53e3da9a1"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T10:57:54.979131"
+}
