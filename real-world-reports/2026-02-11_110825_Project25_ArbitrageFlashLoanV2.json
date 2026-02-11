@@ -1,0 +1,88 @@
+{
+  "project_id": "25",
+  "contract_name": "ArbitrageFlashLoanV2",
+  "contract_address": "0x3b4f9d9c6ff3ad3265eb7af6f4d499177251ebe4",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of ownership",
+    "Withdrawal of tokens by unauthorized address",
+    "Withdrawal of ETH by unauthorized address"
+  ],
+  "attack_path_summary": "The sequence of function calls allowed an unauthorized address to take ownership, set itself as executor, approve token spending, and withdraw both tokens and ETH from the contract, effectively draining its assets.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "setExecutor",
+    "approveToken",
+    "withdrawToken",
+    "withdrawETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x4365f8e70cf38c6ca67de41448508f2da8825500",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setExecutor",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_executor",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "approveToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb"
+        },
+        {
+          "name": "spender",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawETH",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T11:08:25.723420"
+}
