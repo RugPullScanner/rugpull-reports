@@ -1,0 +1,81 @@
+{
+  "project_id": "89",
+  "contract_name": "ZBCLenderFees",
+  "contract_address": "0xbd13d649fdf2bb343e0171f1cf5e3b88d769445f",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized withdrawal of tokens by setting mutual address",
+    "Unauthorized withdrawal of ETH by setting admin address"
+  ],
+  "attack_path_summary": "The function call sequence allowed unauthorized addresses to set themselves as privileged addresses (admin and mutual), enabling them to withdraw tokens and ETH from the contract without restriction.",
+  "critical_functions_involved": [
+    "setAdmin",
+    "setMutual",
+    "withdraw",
+    "withdrawETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setAdmin",
+      "caller": "0xcfd4ad1043e86ca65417f3912b001383d49250e8",
+      "parameters": [
+        {
+          "name": "admin_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setMutual",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "mutual_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(zbclenderfees)"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawETH",
+      "caller": "0xcfd4ad1043e86ca65417f3912b001383d49250e8",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T11:59:57.194540"
+}
