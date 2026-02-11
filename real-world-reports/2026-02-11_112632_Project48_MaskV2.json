@@ -1,0 +1,69 @@
+{
+  "project_id": "48",
+  "contract_name": "MaskV2",
+  "contract_address": "0x6ff11a3c500bd9a6cfe428f2135dd3d58bea6290",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The 'mint' function allows arbitrary minting by accounts with 'God Mode'.",
+    "Limiting Sell Order: The contract imposes sell limits on non-exempt accounts, potentially allowing privileged accounts to sell without restrictions."
+  ],
+  "attack_path_summary": "The sequence starts by granting 'God Mode' to an external address, allowing it to mint a large amount of tokens. This address can then transfer these tokens to another account, potentially dumping them on the market. The contract's sell limit mechanism restricts other users, enabling the privileged account to execute a rug pull by selling large amounts of tokens without restrictions.",
+  "critical_functions_involved": [
+    "setGodMode",
+    "mint",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setGodMode",
+      "caller": "0x9bed8028680cd4176abf9e906077dd6f1a68bd7c",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "status",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "10000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T11:26:32.852486"
+}
