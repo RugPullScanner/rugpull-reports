@@ -1,0 +1,23 @@
+{
+  "project_id": "103",
+  "contract_name": "FinolEngineV7_USDT",
+  "contract_address": "0xd8c4494b265c093001ca1fd707e8fe201c6e8fdc",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "emergencyWithdraw allows the boss to withdraw all USDT from the contract"
+  ],
+  "attack_path_summary": "The function call sequence triggered a rug pull by allowing the owner to withdraw all funds from the contract using the emergencyWithdraw function, leaving no funds for other investors.",
+  "critical_functions_involved": [
+    "emergencyWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "emergencyWithdraw",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T12:10:17.833692"
+}
