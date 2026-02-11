@@ -1,0 +1,73 @@
+{
+  "project_id": "82",
+  "contract_name": "GemPadLockv3",
+  "contract_address": "0xaeae9ca32264198f315892602f571b25e348b927",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The adminRescueTokens function was called by the owner, allowing the transfer of tokens to an arbitrary address.",
+    "The setFeeCollector function was used to set the fee collector and auto collect account to an external address, potentially allowing unauthorized fund collection."
+  ],
+  "attack_path_summary": "The function call sequence enabled the contract owner to set an external address as the fee collector and auto collect account, and then use the adminRescueTokens function to transfer a large amount of tokens to this address, effectively draining the contract.",
+  "critical_functions_involved": [
+    "setFeeCollector",
+    "adminRescueTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setWhitelist",
+      "caller": "0x1ebce58ee2ec7f2c6a5d24a89478ee700c77a5ef",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_isWhitelisted",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "setFeeCollector",
+      "caller": "0x1ebce58ee2ec7f2c6a5d24a89478ee700c77a5ef",
+      "parameters": [
+        {
+          "name": "_autoCollectAccount",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_feeCollector",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "adminRescueTokens",
+      "caller": "0x1ebce58ee2ec7f2c6a5d24a89478ee700c77a5ef",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "receiver",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "2000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T11:52:28.245727"
+}
