@@ -1,0 +1,63 @@
+{
+  "project_id": "4",
+  "contract_name": "ZBC",
+  "contract_address": "0x0ae48df39e366acd54bb9685b86a6a0656665723",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The mintOfOwner function allows arbitrary minting of tokens to any address by the admin, which can be used to create a large number of tokens and execute a rug pull.",
+    "Limiting Sell Order: The isTaxExcluded mapping can be manipulated by the admin to exclude specific addresses from tax, potentially allowing the admin to sell tokens without incurring the usual tax, facilitating a rug pull."
+  ],
+  "attack_path_summary": "The function call sequence allowed the admin to mint a large number of tokens to an external address and then transfer those tokens to another address without incurring any tax, which could be used to drain liquidity from the pool.",
+  "critical_functions_involved": [
+    "mintOfOwner",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setZBCWallet",
+      "caller": "0xcfd4ad1043e86ca65417f3912b001383d49250e8",
+      "parameters": [
+        {
+          "name": "zbcWallet_",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "mintOfOwner",
+      "caller": "0xcfd4ad1043e86ca65417f3912b001383d49250e8",
+      "parameters": [
+        {
+          "name": "addr",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-11T10:52:55.158375"
+}
