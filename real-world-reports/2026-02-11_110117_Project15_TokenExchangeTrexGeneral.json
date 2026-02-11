@@ -1,0 +1,66 @@
+{
+  "project_id": "15",
+  "contract_name": "TokenExchangeTrexGeneral",
+  "contract_address": "0x1ecc985dd784dc521582f4ee35a19d906970e4a3",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function",
+    "Limiting Sell Order",
+    "Leaking Token"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set maximum fees and referral percentages, buy tokens with excessive minting, and withdraw all funds, indicating a potential rug pull.",
+  "critical_functions_involved": [
+    "setTransferFee",
+    "setReferralPercentage",
+    "buyTokens",
+    "withdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setTransferFee",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "newFee",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "setReferralPercentage",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": [
+        {
+          "name": "newPercentage",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "buyTokens",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "tokenAmount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "_erc3643",
+          "type": "address",
+          "value": "address(tokenexchangetrexgeneral)"
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0xd935366889a3dece4389d6579df77cd8bcaa0e10",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T11:01:17.565317"
+}
