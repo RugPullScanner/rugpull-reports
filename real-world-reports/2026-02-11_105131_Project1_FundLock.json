@@ -1,0 +1,59 @@
+{
+  "project_id": "1",
+  "contract_name": "FundLock",
+  "contract_address": "0x00dea5fd7be18befe359c30c14a1bf4a16e5ce22",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can withdraw any amount of tokens from the contract using withdrawAmount function",
+    "Owner can set lockStartTime and lockEndTime to 0, effectively disabling the lock mechanism",
+    "Owner can pause the contract, preventing any user withdrawals"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to withdraw large amounts of tokens, disable the lock mechanism, and pause the contract, enabling a rug pull by extracting funds and preventing user actions.",
+  "critical_functions_involved": [
+    "withdrawAmount",
+    "setTime",
+    "stopContract"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "withdrawAmount",
+      "caller": "0x56a8cb3746e732b9c411a9973b7cab284aaaedbb",
+      "parameters": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "setTime",
+      "caller": "0x56a8cb3746e732b9c411a9973b7cab284aaaedbb",
+      "parameters": [
+        {
+          "name": "_withdrawExtracIntervalTime",
+          "type": "uint256",
+          "value": "1"
+        },
+        {
+          "name": "_lockStartTime",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_lockEndTime",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "stopContract",
+      "caller": "0x56a8cb3746e732b9c411a9973b7cab284aaaedbb",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-11T10:51:31.800882"
+}
