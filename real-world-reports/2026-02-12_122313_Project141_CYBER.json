@@ -1,0 +1,52 @@
+{
+  "project_id": "141",
+  "contract_name": "CYBER",
+  "contract_address": "0xd10238cdd4330e79be90428ee8d99c193121d667",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from contract address to external address",
+    "Ownership transfer to an external address followed by token claim"
+  ],
+  "attack_path_summary": "The sequence involved transferring ownership to an external address, which then claimed tokens from the contract using the claimToken function, potentially draining funds from the contract.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "claimToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x4d274bb3c84c612545b89caa26d88365945c130e",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "claimToken",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(cyber)"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T12:23:13.971678"
+}
