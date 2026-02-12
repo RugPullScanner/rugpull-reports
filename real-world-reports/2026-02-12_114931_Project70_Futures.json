@@ -1,0 +1,48 @@
+{
+  "project_id": "70",
+  "contract_name": "Futures",
+  "contract_address": "0x6d15c0d3c53712fd696c7e8842405512266b7b4b",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership was transferred to an external address.",
+    "The new owner executed privileged functions to withdraw funds."
+  ],
+  "attack_path_summary": "The function call sequence transferred ownership to an external address, which then executed privileged functions to withdraw funds from the reserve pool and collected fees, indicating a potential rug pull.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawReservePool",
+    "withdrawCollectedFees"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xef3fa7a6573842b2a545bf0524860aedbf2da546",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawReservePool",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawCollectedFees",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-12T11:49:31.853446"
+}
