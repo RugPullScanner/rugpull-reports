@@ -1,0 +1,78 @@
+{
+  "project_id": "54",
+  "contract_name": "CommunityAdminFacet",
+  "contract_address": "0x573b3bf4c230335eb4a73d3a6925942ddd3c4c94",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "recoverFunds function allows arbitrary transfer of tokens to any address",
+    "updateTreasury function changes treasury address to an external address controlled by the owner"
+  ],
+  "attack_path_summary": "The function call sequence enables the contract owner to change the treasury address to their own address and then recover funds from the contract to their address, effectively draining the contract's assets.",
+  "critical_functions_involved": [
+    "updateTreasury",
+    "recoverFunds"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "initialize",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_owner",
+          "type": "address",
+          "value": "0xb05a948b5c1b057b88d381bde3a375efea87ebad"
+        },
+        {
+          "name": "_registry",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_treasury",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_percentFee",
+          "type": "uint256",
+          "value": "1000"
+        },
+        {
+          "name": "_baseFee",
+          "type": "uint256",
+          "value": "100"
+        }
+      ]
+    },
+    {
+      "function_name": "updateTreasury",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_treasury",
+          "type": "address",
+          "value": "0xb05a948b5c1b057b88d381bde3a375efea87ebad"
+        }
+      ]
+    },
+    {
+      "function_name": "recoverFunds",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "_recipient",
+          "type": "address",
+          "value": "0xb05a948b5c1b057b88d381bde3a375efea87ebad"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:43:51.852998"
+}
