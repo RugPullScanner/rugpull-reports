@@ -1,0 +1,60 @@
+{
+  "project_id": "21",
+  "contract_name": "DecubateVestingV3",
+  "contract_address": "0x2125ad0aa043a237b19bf3d5e2f2cddb02ff6453",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The owner can disable a strategy using setStrategyStatus, preventing users from claiming their vested tokens.",
+    "The owner can lock a strategy using lockStrategy, which prevents further modifications and potentially traps user funds.",
+    "The owner can withdraw tokens from the contract using withdrawTokens, which could drain the contract of funds."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to disable a strategy, lock it, and then withdraw tokens, effectively preventing users from accessing their vested tokens and draining the contract of funds.",
+  "critical_functions_involved": [
+    "setStrategyStatus",
+    "lockStrategy",
+    "withdrawTokens"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setStrategyStatus",
+      "caller": "0x78b4fa341952b38396755af9c2031c5a588d6806",
+      "parameters": [
+        {
+          "name": "_strategyId",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_status",
+          "type": "bool",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "function_name": "lockStrategy",
+      "caller": "0x78b4fa341952b38396755af9c2031c5a588d6806",
+      "parameters": [
+        {
+          "name": "_strategyId",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawTokens",
+      "caller": "0x78b4fa341952b38396755af9c2031c5a588d6806",
+      "parameters": [
+        {
+          "name": "_amount",
+          "type": "uint256",
+          "value": "1000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:29:11.567253"
+}
