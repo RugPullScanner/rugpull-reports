@@ -1,0 +1,30 @@
+{
+  "project_id": "113",
+  "contract_name": "UniswapLiquidityBot",
+  "contract_address": "0xac6051d710954b1363504f4a6d543244d1f73656",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of contract balance to external address",
+    "Potential for draining contract funds through 'withdrawal' function"
+  ],
+  "attack_path_summary": "The function call sequence involves the 'start' and 'withdrawal' functions, which transfer the contract's balance to an external address controlled by the owner, potentially draining all funds and executing a rug pull.",
+  "critical_functions_involved": [
+    "start",
+    "withdrawal"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "start",
+      "caller": "0x2c8dcdb0d672c17fb7e2e734fc1299fe8ea48041",
+      "parameters": []
+    },
+    {
+      "function_name": "withdrawal",
+      "caller": "0x2c8dcdb0d672c17fb7e2e734fc1299fe8ea48041",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-12T12:11:15.168748"
+}
