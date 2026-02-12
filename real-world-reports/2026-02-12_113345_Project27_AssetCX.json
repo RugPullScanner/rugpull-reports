@@ -1,0 +1,80 @@
+{
+  "project_id": "27",
+  "contract_name": "AssetCX",
+  "contract_address": "0x2bb0a3fb9b9ab774c29a05d5f7ad19b09849f755",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: Unauthorized minting of tokens by an address not originally having the MERCHANT_ROLE.",
+    "Limiting Sell Order: Transfer of minted tokens to an external address, potentially for dumping."
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized address to mint tokens and transfer them to another address, potentially for a rug pull.",
+  "critical_functions_involved": [
+    "grantRole",
+    "mint",
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "beginDefaultAdminTransfer",
+      "caller": "0xf3727f22e1090d64720648036bf492a6e366115e",
+      "parameters": [
+        {
+          "name": "newAdmin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "acceptDefaultAdminTransfer",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "grantRole",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "role",
+          "type": "bytes32",
+          "value": "0x00"
+        },
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0xf3727f22e1090d64720648036bf492a6e366115e"
+        },
+        {
+          "name": "value",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:33:45.901602"
+}
