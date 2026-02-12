@@ -1,0 +1,55 @@
+{
+  "project_id": "34",
+  "contract_name": "IPCSProxy",
+  "contract_address": "0x34b864bf0fb98281139779866870d5aefd4512e2",
+  "iteration": 6,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized caller attempted to execute privileged functions",
+    "Potential for arbitrary upgrade of implementation contract",
+    "Initialization function executed by non-admin"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized caller to change the vault manager, upgrade the implementation, and initialize the proxy, potentially enabling a rug pull by redirecting funds or changing contract behavior.",
+  "critical_functions_involved": [
+    "setVaultManager",
+    "upgradeTo",
+    "initializeProxy"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setVaultManager",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newAdmin",
+          "type": "address",
+          "value": "0x9940765350a00eb3efd21fa11740dfdbd8ee1f3b"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "initializeProxy",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x5678"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:36:00.339845"
+}
