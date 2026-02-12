@@ -1,0 +1,81 @@
+{
+  "project_id": "150",
+  "contract_name": "UniversalBridger",
+  "contract_address": "0xdd47e4416c2c231a8303e1bf53ac52121a1d51e1",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "Rescue functions executed by non-owner address",
+    "Transfer of significant ERC20 and native funds to external address"
+  ],
+  "attack_path_summary": "The sequence of function calls allowed an external address to gain ownership, followed by unauthorized fund transfers using rescue functions, which could be used to drain the contract's assets.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "rescueERC20",
+    "rescueNative"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x5edf80ac4667ecda2561256e2f60c406a24eca64",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setStargateRouterV1",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "router",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueERC20",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "address(universalbridger)"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueNative",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T12:30:37.326133"
+}
