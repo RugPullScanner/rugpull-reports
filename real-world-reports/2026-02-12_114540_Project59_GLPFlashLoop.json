@@ -1,0 +1,81 @@
+{
+  "project_id": "59",
+  "contract_name": "GLPFlashLoop",
+  "contract_address": "0x5c4c51796ec684b5a2e9cf967b57dc2088b5da8a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "updateParameters allows setting minProfitBps to 0, effectively removing profit checks",
+    "withdrawToken allows owner to withdraw arbitrary tokens, potentially draining user funds"
+  ],
+  "attack_path_summary": "The sequence of updating parameters to remove profit checks followed by executing arbitrage with excessive flash loan and finally withdrawing tokens can lead to a rug pull by allowing the owner to drain funds from the contract.",
+  "critical_functions_involved": [
+    "updateParameters",
+    "executeArbitrage",
+    "withdrawToken"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "updateParameters",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "_minProfitBps",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_maxFlashLoan",
+          "type": "uint256",
+          "value": "1000000000000000000000000000"
+        },
+        {
+          "name": "_slippageTolerance",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "executeArbitrage",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "strategy",
+          "type": "uint8",
+          "value": "1"
+        },
+        {
+          "name": "flashAmount",
+          "type": "uint256",
+          "value": "1000000000000000000000000000"
+        },
+        {
+          "name": "tokens",
+          "type": "address[]",
+          "value": [
+            "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8"
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawToken",
+      "caller": "0x9caa77466557869b04de35fc245dd5e202fb22e9",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:45:40.496037"
+}
