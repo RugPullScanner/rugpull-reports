@@ -1,0 +1,57 @@
+{
+  "project_id": "76",
+  "contract_name": "ProxyAdmin",
+  "contract_address": "0x7a576bb5291567cfdbb4585b1911cf7c9891ea07",
+  "iteration": 7,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized upgrade of proxy implementation",
+    "Unauthorized change of proxy admin"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external caller to upgrade the proxy implementation and change the proxy admin without proper authorization, enabling potential malicious control over the contract.",
+  "critical_functions_involved": [
+    "upgradeAndCall",
+    "changeProxyAdmin"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "upgradeAndCall",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "proxy",
+          "type": "address",
+          "value": "address(proxyadmin)"
+        },
+        {
+          "name": "implementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    },
+    {
+      "function_name": "changeProxyAdmin",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "proxy",
+          "type": "address",
+          "value": "address(proxyadmin)"
+        },
+        {
+          "name": "newAdmin",
+          "type": "address",
+          "value": "0x9bd11b31c67609ba3772077a86cc5224e7cae21a"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:51:35.918912"
+}
