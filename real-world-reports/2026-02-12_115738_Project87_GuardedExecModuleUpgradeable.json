@@ -1,0 +1,74 @@
+{
+  "project_id": "87",
+  "contract_name": "GuardedExecModuleUpgradeable",
+  "contract_address": "0x876cac74e8a16a468a0d68d67e10788b8c7840e1",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens from any account",
+    "Withdrawal of significant funds by a privileged account"
+  ],
+  "attack_path_summary": "The function call sequence allowed a privileged account to transfer ownership, pause the contract, remove a target from the whitelist, and withdraw a significant amount of funds, indicating a potential rug pull.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "pause",
+    "removeFromWhitelist",
+    "withdrawTo"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x6e1905a10f4e090e41bac5182a7505253defcf4e",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "pause",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    },
+    {
+      "function_name": "removeFromWhitelist",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001"
+          ]
+        },
+        {
+          "name": "selectors",
+          "type": "bytes4[]",
+          "value": [
+            "0x095ea7b3"
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawTo",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "withdrawAddress",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "withdrawAmount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:57:38.749193"
+}
