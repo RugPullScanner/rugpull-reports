@@ -1,0 +1,89 @@
+{
+  "project_id": "15",
+  "contract_name": "LendRewards",
+  "contract_address": "0x1d46f61a04eb3fec5a9b9a8afab01ff52e6ddbb6",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized withdrawal of contract's native tokens",
+    "Emergency withdrawal function allowing owner to drain funds"
+  ],
+  "attack_path_summary": "The function call sequence included an emergency withdrawal by the owner, which allowed the owner to remove all native tokens from the contract, potentially leading to a rug pull scenario.",
+  "critical_functions_involved": [
+    "emergencyWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "distributeOpRewards",
+      "caller": "0xa036e0f94689b7bbe514527482ea3d9b412db9cf",
+      "parameters": [
+        {
+          "name": "_opId",
+          "type": "uint256",
+          "value": "5"
+        },
+        {
+          "name": "_epoch",
+          "type": "uint256",
+          "value": "5"
+        },
+        {
+          "name": "_merkleRoot",
+          "type": "bytes32",
+          "value": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef"
+        },
+        {
+          "name": "_totalAllocation",
+          "type": "uint256",
+          "value": "5000"
+        }
+      ]
+    },
+    {
+      "function_name": "claimOpEpoch",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_opId",
+          "type": "uint256",
+          "value": "5"
+        },
+        {
+          "name": "_user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_epoch",
+          "type": "uint256",
+          "value": "5"
+        },
+        {
+          "name": "_claimedBalance",
+          "type": "uint256",
+          "value": "2500"
+        },
+        {
+          "name": "_merkleProof",
+          "type": "bytes32[]",
+          "value": [
+            "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef"
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "emergencyWithdraw",
+      "caller": "0xa036e0f94689b7bbe514527482ea3d9b412db9cf",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "address(lendrewards)"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:24:57.061496"
+}
