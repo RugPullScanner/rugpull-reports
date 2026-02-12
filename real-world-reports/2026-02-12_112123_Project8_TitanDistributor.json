@@ -1,0 +1,52 @@
+{
+  "project_id": "8",
+  "contract_name": "TitanDistributor",
+  "contract_address": "0x0f655b655887d93985fee77d9aea2ed770e88846",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized withdrawal by non-owner",
+    "Large token transfer without proper authorization"
+  ],
+  "attack_path_summary": "The function call sequence allowed a non-owner address to withdraw funds and transfer a large amount of tokens, indicating a potential rug pull.",
+  "critical_functions_involved": [
+    "withdraw",
+    "distributeRewards"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "mintLicense",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    },
+    {
+      "function_name": "distributeRewards",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "recipients",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[]",
+          "value": [
+            500000000000000000000000,
+            500000000000000000000000
+          ]
+        }
+      ]
+    },
+    {
+      "function_name": "withdraw",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-12T11:21:23.312829"
+}
