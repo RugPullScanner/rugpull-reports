@@ -1,0 +1,82 @@
+{
+  "project_id": "115",
+  "contract_name": "NativeProfileGenesis",
+  "contract_address": "0xae31d7be760d92807b013a71bb51f2cbb132166b",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized contract authorization",
+    "Unauthorized admin setting",
+    "Unauthorized upgrade execution"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized user to gain control over the contract by transferring ownership, authorizing a contract, setting an admin, and executing an upgrade, which could be used to drain funds or alter contract behavior maliciously.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "authorizeContract",
+    "setAdmin",
+    "upgradeToAndCall"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x7a2b7feab9b0e30a5368d3cc4cb8279c9606384c",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "authorizeContract",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_contract",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_authorized",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "setAdmin",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_admin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "_status",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T12:11:33.965636"
+}
