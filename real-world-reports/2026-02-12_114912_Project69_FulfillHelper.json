@@ -1,0 +1,57 @@
+{
+  "project_id": "69",
+  "contract_name": "FulfillHelper",
+  "contract_address": "0x6bdcd1878525a0130da6e506382a29687e8d9ca7",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of tokens via rescueToken",
+    "Unauthorized transfer of ETH via rescueEth"
+  ],
+  "attack_path_summary": "The function call sequence allowed the privileged owner to transfer tokens and ETH from the contract to an external address without any restrictions, which could be used to execute a rug pull by draining the contract's assets.",
+  "critical_functions_involved": [
+    "rescueToken",
+    "rescueEth"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "rescueToken",
+      "caller": "0xd17c9c53e813f4d9f6146710f475a80e1d2d97cb",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "rescueEth",
+      "caller": "0xd17c9c53e813f4d9f6146710f475a80e1d2d97cb",
+      "parameters": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-12T11:49:12.239219"
+}
