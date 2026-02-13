@@ -1,0 +1,53 @@
+{
+  "project_id": "93",
+  "contract_name": "OwnerAdminProxy",
+  "contract_address": "0x3b43007bdd352e052610d792df0e18a88b569026",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Admin or owner can upgrade implementation to malicious contract",
+    "Ownership transferred to an admin who can execute further malicious actions"
+  ],
+  "attack_path_summary": "The sequence allows an admin to upgrade the contract to a malicious implementation and then transfer ownership to themselves, enabling potential malicious actions such as draining funds.",
+  "critical_functions_involved": [
+    "upgradeTo",
+    "transferOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "addAdmin",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "admin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x3333333333333333333333333333333333333333"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T19:12:45.670281"
+}
