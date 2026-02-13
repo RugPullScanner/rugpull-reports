@@ -1,0 +1,36 @@
+{
+  "project_id": "111",
+  "contract_name": "UnlimitedInitImplementation",
+  "contract_address": "0x44e081e0ed9ba5c6a7ee6b98e3f79f4db26c9436",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The initialize function allows the proxy admin to change the owner unlimited times, which can be exploited to transfer ownership to a malicious address.",
+    "The sensitiveAction function can be executed by the new owner set by the proxy admin, allowing unauthorized access to privileged actions."
+  ],
+  "attack_path_summary": "The proxy admin can repeatedly call initialize to set the owner to any address, including malicious ones, enabling unauthorized execution of sensitive actions.",
+  "critical_functions_involved": [
+    "initialize",
+    "sensitiveAction"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "initialize",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "sensitiveAction",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-13T19:21:00.873752"
+}
