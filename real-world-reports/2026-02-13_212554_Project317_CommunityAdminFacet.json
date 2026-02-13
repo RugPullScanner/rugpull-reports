@@ -1,0 +1,64 @@
+{
+  "project_id": "317",
+  "contract_name": "CommunityAdminFacet",
+  "contract_address": "0xce9e27ba04c18c487c6eac1a642c94edd0bd0c6f",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized fund recovery by new council safe",
+    "Transfer of native tokens to privileged address"
+  ],
+  "attack_path_summary": "The function call sequence allowed the new council safe to recover funds and transfer them to a privileged address, indicating a potential rug pull scenario.",
+  "critical_functions_involved": [
+    "setCouncilSafe",
+    "acceptCouncilSafe",
+    "recoverFunds"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setCommunityFee",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_newCommunityFee",
+          "type": "uint256",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "function_name": "setCouncilSafe",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_safe",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "acceptCouncilSafe",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    },
+    {
+      "function_name": "recoverFunds",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+        },
+        {
+          "name": "_recipient",
+          "type": "address",
+          "value": "0xb05a948b5c1b057b88d381bde3a375efea87ebad"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T21:25:54.844859"
+}
