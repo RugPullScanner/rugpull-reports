@@ -1,0 +1,46 @@
+{
+  "project_id": "49",
+  "contract_name": "BalanceTrackerNvmSubscriptionToken",
+  "contract_address": "0x1a0bfcc27051bccddc444578f56a4f5920e0e083",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized fund movement through drain function",
+    "Owner can set subscription parameters and then drain funds"
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set subscription parameters and immediately drain the contract's funds, effectively executing a rug pull.",
+  "critical_functions_involved": [
+    "setSubscription",
+    "drain"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setSubscription",
+      "caller": "0xeb2a22b27c7ad5eee424fd90b376c745e60f914e",
+      "parameters": [
+        {
+          "name": "_subscriptionNFT",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "_subscriptionTokenId",
+          "type": "uint256",
+          "value": "1"
+        },
+        {
+          "name": "_tokenCreditRatio",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "drain",
+      "caller": "0xeb2a22b27c7ad5eee424fd90b376c745e60f914e",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-13T18:53:07.064459"
+}
