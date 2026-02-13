@@ -1,0 +1,46 @@
+{
+  "project_id": "353",
+  "contract_name": "ViewOnly",
+  "contract_address": "0xdcf3511f5e9f850884fe5d6c1adb7932bc15d65a",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized transfer of funds",
+    "Admin can transfer arbitrary amounts to arbitrary addresses"
+  ],
+  "attack_path_summary": "The function call sequence allowed the admin to transfer 2 ETH to an arbitrary address without any restrictions or checks, enabling potential unauthorized fund extraction.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x921282c5765bd3e02f338dbb749588d028b65d2d",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "0x"
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            "2000000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T21:51:35.770926"
+}
