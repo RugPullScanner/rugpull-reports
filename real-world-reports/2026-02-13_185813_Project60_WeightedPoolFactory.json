@@ -1,0 +1,81 @@
+{
+  "project_id": "60",
+  "contract_name": "WeightedPoolFactory",
+  "contract_address": "0x254f3a2974b97dc2e675f6115c845567c55f83b0",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Excessive swap fee percentage set to 100% in create function",
+    "Factory disabled before pool creation, preventing further pool creation"
+  ],
+  "attack_path_summary": "The function call sequence involved disabling the factory, which prevents any further pool creation, followed by creating a pool with a swap fee percentage of 100%, effectively allowing the owner to drain all liquidity from the pool.",
+  "critical_functions_involved": [
+    "disable",
+    "create"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "disable",
+      "caller": "0x9098b50ee2d9e4c3c69928a691da3b192b4c9673",
+      "parameters": []
+    },
+    {
+      "function_name": "create",
+      "caller": "0x9098b50ee2d9e4c3c69928a691da3b192b4c9673",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "value": "RugPool"
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "value": "RUG"
+        },
+        {
+          "name": "tokens",
+          "type": "TokenConfig[]",
+          "value": "[]"
+        },
+        {
+          "name": "normalizedWeights",
+          "type": "uint256[]",
+          "value": "[1000000000000000000]"
+        },
+        {
+          "name": "roleAccounts",
+          "type": "PoolRoleAccounts",
+          "value": "{}"
+        },
+        {
+          "name": "swapFeePercentage",
+          "type": "uint256",
+          "value": "100000000000000000"
+        },
+        {
+          "name": "poolHooksContract",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "enableDonation",
+          "type": "bool",
+          "value": "true"
+        },
+        {
+          "name": "disableUnbalancedLiquidity",
+          "type": "bool",
+          "value": "true"
+        },
+        {
+          "name": "salt",
+          "type": "bytes32",
+          "value": "0x0"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T18:58:13.139616"
+}
