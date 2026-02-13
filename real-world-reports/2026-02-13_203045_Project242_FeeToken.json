@@ -1,0 +1,69 @@
+{
+  "project_id": "242",
+  "contract_name": "FeeToken",
+  "contract_address": "0x9dfe4fa0410c32c661dffca67937ac39fc8c6b84",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: The mint function allows anyone to mint tokens to any address without restrictions.",
+    "Fee Receiver Control: The owner can set the fee receiver to any address, including their own, and withdraw accumulated fees."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to set themselves as the fee receiver and withdraw accumulated fees. Additionally, the mint function allows arbitrary token minting by any address, enabling the owner or any malicious actor to inflate token supply and extract value.",
+  "critical_functions_involved": [
+    "setFeeReceiver",
+    "withdrawFees",
+    "mint"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFeeReceiver",
+      "caller": "0xb4f1c6eee65d2ea00c37fcf2d3b5afb84698de12",
+      "parameters": [
+        {
+          "name": "_feeReceiver",
+          "type": "address",
+          "value": "0xb4f1c6eee65d2ea00c37fcf2d3b5afb84698de12"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawFees",
+      "caller": "0xb4f1c6eee65d2ea00c37fcf2d3b5afb84698de12",
+      "parameters": []
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "100000000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "transfer",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "50000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T20:30:45.182591"
+}
