@@ -1,0 +1,60 @@
+{
+  "project_id": "381",
+  "contract_name": "TransparentUpgradeableProxy",
+  "contract_address": "0xea91d871ef3d0f1bedb4537f16e18a39005dd183",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized caller attempted to upgrade implementation",
+    "Unauthorized caller attempted to remove admin",
+    "Unauthorized caller attempted to transfer ownership"
+  ],
+  "attack_path_summary": "The function call sequence involved an unauthorized caller attempting to upgrade the contract implementation, remove an admin, and transfer ownership, which could lead to a complete takeover of the contract by a malicious actor.",
+  "critical_functions_involved": [
+    "upgradeToAndCall",
+    "removeAdmin",
+    "transferOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "impl",
+          "type": "address",
+          "value": "0x4444444444444444444444444444444444444444"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    },
+    {
+      "function_name": "removeAdmin",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "admin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T22:05:04.159507"
+}
