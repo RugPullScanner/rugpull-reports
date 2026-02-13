@@ -1,0 +1,54 @@
+{
+  "project_id": "125",
+  "contract_name": "TransparentUpgradeableProxy",
+  "contract_address": "0x4d249c6cb8f2efb21c4205740fbf5d0a5efa97cb",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external caller",
+    "Implementation upgrade by new owner",
+    "Implementation removal by new owner"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external caller to gain ownership, upgrade the implementation to a potentially malicious contract, and then remove the implementation, effectively disabling the contract and potentially redirecting funds.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "upgradeToAndCall",
+    "removeImp"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    },
+    {
+      "function_name": "removeImp",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-13T19:27:41.563628"
+}
