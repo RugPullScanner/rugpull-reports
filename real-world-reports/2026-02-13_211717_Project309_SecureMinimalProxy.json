@@ -1,0 +1,42 @@
+{
+  "project_id": "309",
+  "contract_name": "SecureMinimalProxy",
+  "contract_address": "0xc91e36b28ab3017fc988c0493ac75c7cb46f3e7d",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external caller",
+    "Upgrade to a potentially malicious implementation"
+  ],
+  "attack_path_summary": "The function call sequence transferred ownership to an external address, which then upgraded the contract to a new implementation. This new implementation could contain malicious code, allowing the new owner to execute a rug pull.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "upgradeTo"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T21:17:17.825656"
+}
