@@ -1,0 +1,46 @@
+{
+  "project_id": "289",
+  "contract_name": "ViewOnly",
+  "contract_address": "0xb9f826fb34624bd371262075eb99eb3d6fbf5b02",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The transfer function allows arbitrary calls to any address with any data and value, controlled by the admin.",
+    "The onlyAdmin modifier relies on a hardcoded hash for admin verification, which is insecure and can be exploited."
+  ],
+  "attack_path_summary": "The admin can execute arbitrary calls to any address, allowing them to drain funds from the contract by transferring Ether to their own address or any other address they control.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0xa0b256c26fc32584cd23c155193f6bff6a980521",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "0x"
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            "1000000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T21:04:40.052611"
+}
