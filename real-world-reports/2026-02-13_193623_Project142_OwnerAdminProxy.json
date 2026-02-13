@@ -1,0 +1,55 @@
+{
+  "project_id": "142",
+  "contract_name": "OwnerAdminProxy",
+  "contract_address": "0x57be1aec401cd7ab73266ebf41ee9a0886131da8",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized access to upgradeTo function by non-owner/admin",
+    "Ownership transfer attempted by non-owner",
+    "Potential unauthorized removal of admin"
+  ],
+  "attack_path_summary": "The function call sequence involves unauthorized access to critical functions like upgradeTo and transferOwnership by an external caller, which could lead to a rug pull by changing the contract implementation and transferring ownership.",
+  "critical_functions_involved": [
+    "upgradeTo",
+    "transferOwnership",
+    "removeAdmin"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "impl",
+          "type": "address",
+          "value": "0x3333333333333333333333333333333333333333"
+        }
+      ]
+    },
+    {
+      "function_name": "removeAdmin",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "admin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T19:36:23.755350"
+}
