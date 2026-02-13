@@ -1,0 +1,47 @@
+{
+  "project_id": "146",
+  "contract_name": "EducationalSyntheticUSD",
+  "contract_address": "0x58b234641b112d31d34dd4c6419453afd4c3f4ba",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function: mintUnsafe allows owner to mint unlimited tokens to any address.",
+    "Owner Withdraw: withdrawETH allows owner to drain all ETH from contract."
+  ],
+  "attack_path_summary": "The function call sequence allows the owner to mint a large amount of tokens to an arbitrary address and then withdraw all ETH from the contract, potentially leading to a rug pull.",
+  "critical_functions_involved": [
+    "mintUnsafe",
+    "withdrawETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "mintUnsafe",
+      "caller": "0x98ab320ad1f8459d9ea2e83e1fc3ea80504f0eae",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawETH",
+      "caller": "0x98ab320ad1f8459d9ea2e83e1fc3ea80504f0eae",
+      "parameters": [
+        {
+          "name": "recipient",
+          "type": "address",
+          "value": "0x98ab320ad1f8459d9ea2e83e1fc3ea80504f0eae"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T19:38:51.240173"
+}
