@@ -1,0 +1,58 @@
+{
+  "project_id": "364",
+  "contract_name": "OwnerAdminProxy",
+  "contract_address": "0xe1c1eecab0d8ee74904bffe19242265ec62359f6",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external address",
+    "Implementation upgraded by a non-owner address"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of ownership to an external address, which then upgraded the contract implementation, potentially allowing malicious code execution.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "upgradeToAndCall"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x1111111111111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x2222222222222222222222222222222222222222"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T21:57:41.114778"
+}
