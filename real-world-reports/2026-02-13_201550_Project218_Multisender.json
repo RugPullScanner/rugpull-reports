@@ -1,0 +1,70 @@
+{
+  "project_id": "218",
+  "contract_name": "Multisender",
+  "contract_address": "0x8cf50abff6f4b1349e521b377be9ec868205de5c",
+  "iteration": 5,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner set fees to zero, allowing free transactions",
+    "Owner executed emergency withdrawal to extract funds"
+  ],
+  "attack_path_summary": "The function call sequence allowed the owner to set transaction fees to zero, enabling free transactions, and subsequently withdraw funds from the contract using the emergencyWithdraw function.",
+  "critical_functions_involved": [
+    "setFees",
+    "emergencyWithdraw"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setFees",
+      "caller": "0xedfeda0520dd0ecd5e3e3306e2d720f9c3ccfcd8",
+      "parameters": [
+        {
+          "name": "_flatFee",
+          "type": "uint256",
+          "value": "0"
+        },
+        {
+          "name": "_perRecipientFee",
+          "type": "uint256",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "function_name": "multisendNativeFixed",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "recipients",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000"
+        }
+      ]
+    },
+    {
+      "function_name": "emergencyWithdraw",
+      "caller": "0xedfeda0520dd0ecd5e3e3306e2d720f9c3ccfcd8",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000000"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T20:15:50.578190"
+}
