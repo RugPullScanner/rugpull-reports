@@ -1,0 +1,64 @@
+{
+  "project_id": "53",
+  "contract_name": "CommunityAdminFacet",
+  "contract_address": "0x1c62f449058bbeed546823a1a581d28233f7a69c",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized fund recovery by new council safe",
+    "Potential for arbitrary fund transfer to external address"
+  ],
+  "attack_path_summary": "The sequence allows a new council safe to be set and accepted, followed by the recovery of funds to an external address, enabling a rug pull by transferring all contract funds to an attacker-controlled address.",
+  "critical_functions_involved": [
+    "setCouncilSafe",
+    "acceptCouncilSafe",
+    "recoverFunds"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setCommunityFee",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_newCommunityFee",
+          "type": "uint256",
+          "value": 10000
+        }
+      ]
+    },
+    {
+      "function_name": "setCouncilSafe",
+      "caller": "0xb05a948b5c1b057b88d381bde3a375efea87ebad",
+      "parameters": [
+        {
+          "name": "_safe",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "acceptCouncilSafe",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    },
+    {
+      "function_name": "recoverFunds",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "_token",
+          "type": "address",
+          "value": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+        },
+        {
+          "name": "_recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T18:54:33.621353"
+}
