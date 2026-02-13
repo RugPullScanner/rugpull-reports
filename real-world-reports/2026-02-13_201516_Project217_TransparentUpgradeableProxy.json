@@ -1,0 +1,42 @@
+{
+  "project_id": "217",
+  "contract_name": "TransparentUpgradeableProxy",
+  "contract_address": "0x8cd1401deb17cbeb41b1866e1278df1e6192e487",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transferred to an external caller",
+    "Upgrade function executed by non-original owner"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external address to take ownership and upgrade the contract implementation, potentially enabling malicious code execution.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "upgradeTo"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeTo",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T20:15:16.239679"
+}
