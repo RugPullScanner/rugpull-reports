@@ -1,0 +1,64 @@
+{
+  "project_id": "187",
+  "contract_name": "Presale",
+  "contract_address": "0x7963ab186fc6f3aea94b0de203787267cf10dc8a",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Owner can withdraw all funds without any restrictions",
+    "Owner can disable token deposits and whitelist tokens"
+  ],
+  "attack_path_summary": "The function call sequence allows the contract owner to disable token deposits, whitelist tokens, and withdraw all funds from the contract, which can be used to execute a rug pull by draining all user funds from the contract.",
+  "critical_functions_involved": [
+    "disableTokenDeposits",
+    "withdrawAll"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setPaused",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "p",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    {
+      "function_name": "whitelistToken",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xe62d480248a27e9bf2ad9d521cf740cab0932f1c"
+        }
+      ]
+    },
+    {
+      "function_name": "disableTokenDeposits",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0xe62d480248a27e9bf2ad9d521cf740cab0932f1c"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawAll",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": [
+        {
+          "name": "ok",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T19:58:46.711304"
+}
