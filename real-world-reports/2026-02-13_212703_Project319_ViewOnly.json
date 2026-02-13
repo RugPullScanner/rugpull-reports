@@ -1,0 +1,49 @@
+{
+  "project_id": "319",
+  "contract_name": "ViewOnly",
+  "contract_address": "0xcff05b370dfdfab27f3940c736f1edb9da323d90",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "The transfer function allows arbitrary calls to be made by the admin, which can drain the contract balance.",
+    "The onlyAdmin modifier uses a hardcoded hash for admin verification, which can be insecure if the hash is compromised."
+  ],
+  "attack_path_summary": "The admin can use the transfer function to call any address with any data and value, potentially draining all funds from the contract.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x39f61e895bfd90b9068a6c8883bdb9b543d7dfd0",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "0x",
+            "0x"
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            "1000000000000000000",
+            "1000000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T21:27:03.098506"
+}
