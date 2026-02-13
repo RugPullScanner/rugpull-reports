@@ -1,0 +1,47 @@
+{
+  "project_id": "201",
+  "contract_name": "ImplementationV1",
+  "contract_address": "0x81e4f02e76c6682348afc2959366ac9fac4d033a",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Admin privileges were transferred to an external caller",
+    "The new admin executed an upgrade to a potentially malicious implementation"
+  ],
+  "attack_path_summary": "The function call sequence allowed an external address to become the admin and execute an upgrade to a new implementation, which could be malicious, enabling unauthorized control over the contract.",
+  "critical_functions_involved": [
+    "changeAdmin",
+    "upgradeToAndCall"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "changeAdmin",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newAdmin",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T20:05:36.428811"
+}
