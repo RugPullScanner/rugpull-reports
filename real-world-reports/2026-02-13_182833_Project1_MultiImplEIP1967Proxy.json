@@ -1,0 +1,50 @@
+{
+  "project_id": "1",
+  "contract_name": "MultiImplEIP1967Proxy",
+  "contract_address": "0x00298ff233064d05212868fbf916476fd23ec7cc",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized caller was able to execute admin functions",
+    "Admin rights were transferred to a potentially malicious address"
+  ],
+  "attack_path_summary": "The function call sequence allowed an unauthorized caller to set implementations and change the admin to a potentially malicious address, indicating a risk of rug pull through unauthorized control over the contract's critical functions.",
+  "critical_functions_involved": [
+    "setImplementations",
+    "changeAdmin"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setImplementations",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "selectors",
+          "type": "bytes4[]",
+          "value": [
+            "0x12345678",
+            "0x87654321"
+          ]
+        },
+        {
+          "name": "implementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "changeAdmin",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newAdmin",
+          "type": "address",
+          "value": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T18:28:33.317616"
+}
