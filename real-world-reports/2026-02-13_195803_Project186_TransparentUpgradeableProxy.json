@@ -1,0 +1,47 @@
+{
+  "project_id": "186",
+  "contract_name": "TransparentUpgradeableProxy",
+  "contract_address": "0x78d67ca7a5fa0748aef1c87d9681a802319515e1",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Admin privileges were transferred to an external address",
+    "Implementation was detached, potentially disabling contract functionality"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of admin privileges to an external address, followed by detaching the implementation, which could lead to a loss of control over the contract and potential funds.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "detachImplementation"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "upgradeTo",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newImplementation",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "detachImplementation",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-13T19:58:03.876970"
+}
