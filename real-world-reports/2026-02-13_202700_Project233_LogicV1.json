@@ -1,0 +1,70 @@
+{
+  "project_id": "233",
+  "contract_name": "LogicV1",
+  "contract_address": "0x987d501e15083c421424843cbb6a3092d576332f",
+  "iteration": 2,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Ownership transfer to an external caller",
+    "Unauthorized withdrawal of ERC20 tokens",
+    "Unauthorized withdrawal of ETH"
+  ],
+  "attack_path_summary": "The function call sequence allowed the transfer of ownership to an external address, which then executed unauthorized withdrawals of both ERC20 tokens and ETH, potentially draining the contract's assets.",
+  "critical_functions_involved": [
+    "transferOwnership",
+    "withdrawERC20",
+    "withdrawETH"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transferOwnership",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawERC20",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000"
+        }
+      ]
+    },
+    {
+      "function_name": "withdrawETH",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "to",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "500000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T20:27:00.426665"
+}
