@@ -1,0 +1,58 @@
+{
+  "project_id": "236",
+  "contract_name": "Velo",
+  "contract_address": "0x9a7306a451a770d6dba5a4b1524c4579d8b6d7cd",
+  "iteration": 1,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Hidden Mint Function"
+  ],
+  "attack_path_summary": "The sequence allowed an unauthorized address to mint a large number of tokens, which could be used to drain liquidity pools, leading to a rug pull.",
+  "critical_functions_involved": [
+    "setMinter",
+    "initialMint",
+    "mint"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "setMinter",
+      "caller": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d",
+      "parameters": [
+        {
+          "name": "_minter",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "initialMint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "_recipient",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        }
+      ]
+    },
+    {
+      "function_name": "mint",
+      "caller": "0x0000000000000000000000000000000000000001",
+      "parameters": [
+        {
+          "name": "account",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000002"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "1000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T20:28:11.507343"
+}
