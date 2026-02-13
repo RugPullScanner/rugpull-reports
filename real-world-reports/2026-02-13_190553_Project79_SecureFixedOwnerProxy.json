@@ -1,0 +1,68 @@
+{
+  "project_id": "79",
+  "contract_name": "SecureFixedOwnerProxy",
+  "contract_address": "0x333268fb8452a04571c37cce64eb0c2ca1073cb4",
+  "iteration": 4,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unauthorized upgrade attempt by non-owner",
+    "Unauthorized ownership transfer attempt by non-owner"
+  ],
+  "attack_path_summary": "The function call sequence attempted to upgrade the implementation and transfer ownership using an address that is not the owner, indicating potential malicious intent to take control of the contract.",
+  "critical_functions_involved": [
+    "upgradeToAndCall",
+    "transferOwnership"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "upgradeToAndCall",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newImpl",
+          "type": "address",
+          "value": "0xa2ca2f53ad62cbd5c9c8db7c1e7f9cfdb0390e3d"
+        },
+        {
+          "name": "data",
+          "type": "bytes",
+          "value": "0x"
+        }
+      ]
+    },
+    {
+      "function_name": "transferOwnership",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "newOwner",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000001"
+        }
+      ]
+    },
+    {
+      "function_name": "setBalance",
+      "caller": "0x0000000000000000000000000000000000000002",
+      "parameters": [
+        {
+          "name": "user",
+          "type": "address",
+          "value": "0x0000000000000000000000000000000000000003"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "value": "5000"
+        }
+      ]
+    },
+    {
+      "function_name": "increment",
+      "caller": "0x0000000000000000000000000000000000000003",
+      "parameters": []
+    }
+  ],
+  "timestamp": "2026-02-13T19:05:53.511433"
+}
