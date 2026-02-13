@@ -1,0 +1,49 @@
+{
+  "project_id": "78",
+  "contract_name": "ViewOnly",
+  "contract_address": "0x31f578223cd18e87d7db5465d1db555e42c23624",
+  "iteration": 3,
+  "rug_pull_detected": true,
+  "risk_level": "CRITICAL",
+  "triggered_conditions": [
+    "Unrestricted transfer function",
+    "Privileged access with hardcoded admin"
+  ],
+  "attack_path_summary": "The transfer function allows the admin to call arbitrary functions on any target address with any value, potentially draining funds from the contract.",
+  "critical_functions_involved": [
+    "transfer"
+  ],
+  "function_call_sequence": [
+    {
+      "function_name": "transfer",
+      "caller": "0x0742d53905f329a1290ea17f53b0b08a06b4b030",
+      "parameters": [
+        {
+          "name": "targets",
+          "type": "address[]",
+          "value": [
+            "0x0000000000000000000000000000000000000001",
+            "0x0000000000000000000000000000000000000002"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "bytes[]",
+          "value": [
+            "",
+            ""
+          ]
+        },
+        {
+          "name": "values",
+          "type": "uint[]",
+          "value": [
+            "1000000000000000000",
+            "1000000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-02-13T19:05:17.286838"
+}
